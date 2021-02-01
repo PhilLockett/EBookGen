@@ -1,0 +1,75 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root{
+    -fx-background-color: #383838;
+}
+.label{
+    -fx-text-fill: #e8e8e8;
+}
+
+.check-box{
+    -fx-text-fill: #e8e8e8;
+    -fx-font-weight: bold;
+}
+.text-field{
+    -fx-text-fill: #e8e8e8;
+    -fx-font-weight: bold;
+    -fx-background-color: #808080;
+    -fx-background-radius: 12;
+}
+.text-area{
+    -fx-text-fill: white;
+}
+.content{
+    -fx-background-color: #383838;
+	-fx-border-color: #808080;
+	-fx-border-insets: 1;
+}
+
+.spinner{
+    -fx-background-color: #383838;
+}
+.tab {
+    -fx-background-color: #808080;
+}
+.tab:selected {
+    -fx-background-color: #383838;
+    -fx-border-color: #383838;
+}
+
+.tab-content-area {
+    -fx-background-color: #383838;
+    -fx-border-color: #383838;
+}
+
+.tab *.tab-label {
+    -fx-text-fill: white;
+}
+.choice-box, .button{
+    -fx-background-color: #AB4642;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+}
+.increment-arrow-button, .decrement-arrow-button{
+    -fx-background-color: #AB4642;
+}
+.increment-arrow, .decrement-arrow{
+    -fx-background-color: white;
+}
+.button-red{
+    -fx-background-color: #d00000;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 50;
+}
+#bold-label{
+    -fx-font-weight: bold;
+}
+.choice-box{
+    -fx-background-color: #AB4642;
+    -fx-text-fill: #FFFFFF;
+}
+.context-menu{
+    -fx-background-color: #AB4642;
+    -fx-text-fill: #FFFFFF;
+}
