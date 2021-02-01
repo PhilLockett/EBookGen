@@ -67,7 +67,6 @@ public class MainController {
     @FXML    private CheckBox ckbPrologue;
 
     // Body Matter.
-    @FXML    private Spinner<Integer> spnChapterCount;
     @FXML    private TableView<Chapter> tblChapters;
     @FXML    private TableColumn<Chapter, Integer> colChapterNumber;
     @FXML    private TableColumn<Chapter, String> colChapterTitle;
@@ -92,9 +91,28 @@ public class MainController {
 
 	private Model model;
 
+
+    @FXML
+    void actionAppend(ActionEvent event) {
+    	model.incChapterCount();
+		final int CHAPS = model.getChapterCount();
+		listChapters.add(new Chapter(CHAPS, "Chapter " + CHAPS));
+
+//        System.out.println("actionAppend: " + CHAPS);
+    }
+
     @FXML
     void actionGenerate(ActionEvent event) {
         System.out.println("actionGenerate: " + event.toString());
+    }
+
+    @FXML
+    void actionRemove(ActionEvent event) {
+    	model.decChapterCount();
+		final int CHAPS = model.getChapterCount();
+		listChapters.add(new Chapter(CHAPS, "Chapter " + CHAPS));
+
+//        System.out.println("actionRemove: " + CHAPS);
     }
 
     private void refreshNames() {
@@ -151,18 +169,14 @@ public class MainController {
 		cbxIdentifierType.setItems(listIdentifierTypes);
 		cbxIdentifierType.getSelectionModel().select(0);
 
-		SpinnerValueFactory<Integer> vFChapters = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 200, 20);
-		spnChapterCount.setValueFactory(vFChapters);
-//		spnChapterCount.get
-
 		colChapterNumber.setText("Id");
 		colChapterNumber.setCellValueFactory(new PropertyValueFactory<>("identifier"));
 		colChapterTitle.setText("Chapter Heading");
 		colChapterTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 
 		listChapters.clear();
-		final int chaps = Integer.parseInt(spnChapterCount.getValue().toString());
-		for (i = 1; i <= chaps; ++i) {
+		final int CHAPS = model.getChapterCount();
+		for (i = 1; i <= CHAPS; ++i) {
 			listChapters.add(new Chapter(i, "Chapter " + i));
 		}
 		tblChapters.setItems(listChapters);

@@ -37,13 +37,13 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -265,7 +265,32 @@
    <center>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Spinner fx:id="spnChapterCount" />
+            <HBox>
+               <children>
+                  <Button fx:id="btnAppend" mnemonicParsing="false" onAction="#actionAppend" text="Append Chapter">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#actionRemove" text="Remove Last Chapter">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </HBox>
             <TableView fx:id="tblChapters" editable="true">
               <columns>
                 <TableColumn fx:id="colChapterNumber" editable="false" prefWidth="74.0" resizable="false" sortable="false" text="Id" />
@@ -282,7 +307,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#actionGenerate" text="Generate Framework" textAlignment="CENTER" BorderPane.alignment="CENTER">
+      <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#actionGenerate" text="Generate Template" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin>

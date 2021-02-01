@@ -31,6 +31,8 @@ import java.util.TreeMap;
 
 public class Model {
 
+	public final static int INITIAL_CHAPTER_COUNT = 20;
+
 	public final static int ISBN = 0;
 	public final static int URL = 1;
 
@@ -40,6 +42,8 @@ public class Model {
 	private String language = "en";
 	private String identifier = "isbn-123-1-12-123456-1";
 	private int identifierType = ISBN;
+
+	private int chapterCount = INITIAL_CHAPTER_COUNT;
 
 	private Map<String, String> mapLang = new TreeMap<>();
 //	private ObservableList<String> listLang = FXCollections.observableArrayList("UNDEFINED");
@@ -277,6 +281,18 @@ public class Model {
 	}
 	public void setIdentifierType(int identifierType) {
 		this.identifierType = identifierType;
+	}
+
+	public int getChapterCount() {
+		return chapterCount;
+	}
+
+	public void incChapterCount() {
+		this.chapterCount++;
+	}
+
+	public void decChapterCount() {
+		this.chapterCount--;
 	}
 
 }
