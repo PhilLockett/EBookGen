@@ -121,62 +121,62 @@
    <right>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <CheckBox fx:id="ckbEpilogue" mnemonicParsing="false" selected="true" text="Epilogue">
+            <CheckBox fx:id="ckbEpilogue" mnemonicParsing="false" onAction="#actionCheckBox" text="Epilogue">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbOutro" mnemonicParsing="false" text="Outro">
+            <CheckBox fx:id="ckbOutro" mnemonicParsing="false" onAction="#actionCheckBox" text="Outro">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbAfterword" mnemonicParsing="false" text="Afterword">
+            <CheckBox fx:id="ckbAfterword" mnemonicParsing="false" onAction="#actionCheckBox" text="Afterword">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbConclusion" mnemonicParsing="false" text="Conclusion">
+            <CheckBox fx:id="ckbConclusion" mnemonicParsing="false" onAction="#actionCheckBox" text="Conclusion">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbPostscript" mnemonicParsing="false" text="Postscript">
+            <CheckBox fx:id="ckbPostscript" mnemonicParsing="false" onAction="#actionCheckBox" text="Postscript">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbAppendix" mnemonicParsing="false" text="Appendix">
+            <CheckBox fx:id="ckbAppendix" mnemonicParsing="false" onAction="#actionCheckBox" text="Appendix">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbGlossary" mnemonicParsing="false" text="Glossary">
+            <CheckBox fx:id="ckbGlossary" mnemonicParsing="false" onAction="#actionCheckBox" text="Glossary">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbBibliography" mnemonicParsing="false" text="Bibliography">
+            <CheckBox fx:id="ckbBibliography" mnemonicParsing="false" onAction="#actionCheckBox" text="Bibliography">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbIndex" mnemonicParsing="false" text="Index">
+            <CheckBox fx:id="ckbIndex" mnemonicParsing="false" onAction="#actionCheckBox" text="Index">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbBiography" mnemonicParsing="false" selected="true" text="Biography">
+            <CheckBox fx:id="ckbBiography" mnemonicParsing="false" onAction="#actionCheckBox" text="Biography">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbColophon" mnemonicParsing="false" selected="true" text="Colophon">
+            <CheckBox fx:id="ckbColophon" mnemonicParsing="false" onAction="#actionCheckBox" text="Colophon">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbPostface" mnemonicParsing="false" text="Postface">
+            <CheckBox fx:id="ckbPostface" mnemonicParsing="false" onAction="#actionCheckBox" text="Postface">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -193,62 +193,62 @@
    <left>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <CheckBox fx:id="ckbHalfTitle" mnemonicParsing="false" text="Half Title">
+            <CheckBox fx:id="ckbHalfTitle" mnemonicParsing="false" onAction="#actionCheckBox" text="Half Title">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbFrontispiece" mnemonicParsing="false" text="Frontispiece">
+            <CheckBox fx:id="ckbFrontispiece" mnemonicParsing="false" onAction="#actionCheckBox" text="Frontispiece">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbTitlePage" mnemonicParsing="false" selected="true" text="Title Page">
+            <CheckBox fx:id="ckbTitlePage" mnemonicParsing="false" onAction="#actionCheckBox" text="Title Page">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbCopyright" mnemonicParsing="false" selected="true" text="Copyright">
+            <CheckBox fx:id="ckbCopyright" mnemonicParsing="false" onAction="#actionCheckBox" text="Copyright">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbDedication" mnemonicParsing="false" selected="true" text="Dedication">
+            <CheckBox fx:id="ckbDedication" mnemonicParsing="false" onAction="#actionCheckBox" text="Dedication">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbEpigraph" mnemonicParsing="false" text="Epigraph">
+            <CheckBox fx:id="ckbEpigraph" mnemonicParsing="false" onAction="#actionCheckBox" text="Epigraph">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbTableOfContents" mnemonicParsing="false" selected="true" text="Table of Contents">
+            <CheckBox fx:id="ckbTableOfContents" mnemonicParsing="false" onAction="#actionCheckBox" text="Table of Contents">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbForeword" mnemonicParsing="false" text="Foreword">
+            <CheckBox fx:id="ckbForeword" mnemonicParsing="false" onAction="#actionCheckBox" text="Foreword">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbPreface" mnemonicParsing="false" text="Preface">
+            <CheckBox fx:id="ckbPreface" mnemonicParsing="false" onAction="#actionCheckBox" text="Preface">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbAcknowledgments" mnemonicParsing="false" text="Acknowledgments">
+            <CheckBox fx:id="ckbAcknowledgments" mnemonicParsing="false" onAction="#actionCheckBox" text="Acknowledgments">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbIntroduction" mnemonicParsing="false" text="Introduction">
+            <CheckBox fx:id="ckbIntroduction" mnemonicParsing="false" onAction="#actionCheckBox" text="Introduction">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="ckbPrologue" mnemonicParsing="false" selected="true" text="Prologue">
+            <CheckBox fx:id="ckbPrologue" mnemonicParsing="false" onAction="#actionCheckBox" text="Prologue">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

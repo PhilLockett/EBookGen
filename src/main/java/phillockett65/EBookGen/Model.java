@@ -33,13 +33,41 @@ public class Model {
 
 	public final static int INITIAL_CHAPTER_COUNT = 20;
 
+	public final static int CKB_HALFTITLE = 0;
+	public final static int CKB_FRONTISPIECE = 1;
+	public final static int CKB_TITLEPAGE = 2;
+	public final static int CKB_COPYRIGHT = 3;
+	public final static int CKB_DEDICATION = 4;
+	public final static int CKB_EPIGRAPH = 5;
+	public final static int CKB_TABLEOFCONTENTS = 6;
+	public final static int CKB_FOREWORD = 7;
+	public final static int CKB_PREFACE = 8;
+	public final static int CKB_ACKNOWLEDGMENTS = 9;
+	public final static int CKB_INTRODUCTION = 10;
+	public final static int CKB_PROLOGUE = 11;
+	public final static int CKB_EPILOGUE = 12;
+	public final static int CKB_OUTRO = 13;
+	public final static int CKB_AFTERWORD = 14;
+	public final static int CKB_CONCLUSION = 15;
+	public final static int CKB_POSTSCRIPT = 16;
+	public final static int CKB_APPENDIX = 17;
+	public final static int CKB_GLOSSARY = 18;
+	public final static int CKB_BIBLIOGRAPHY = 19;
+	public final static int CKB_INDEX = 20;
+	public final static int CKB_BIOGRAPHY = 21;
+	public final static int CKB_COLOPHON = 22;
+	public final static int CKB_POSTFACE = 23;
+	public final static int CKB_CHECK_BOX_COUNT = 24;		// Number of Check Boxes.
+	
+	private boolean[] checkBoxes = new boolean[CKB_CHECK_BOX_COUNT];
+
 	public final static int ISBN = 0;
 	public final static int URL = 1;
 
 	private String familyName = "Dickens";
 	private String givenNames = "Charles";
 	private String title = "Oliver Twist";
-	private String language = "en";
+	private String language = "English";
 	private String identifier = "isbn-123-1-12-123456-1";
 	private int identifierType = ISBN;
 
@@ -47,6 +75,18 @@ public class Model {
 
 	private Map<String, String> mapLang = new TreeMap<>();
 //	private ObservableList<String> listLang = FXCollections.observableArrayList("UNDEFINED");
+
+	public void generate() {
+		System.out.println("Book Title: " + title);
+		System.out.println("Book Identifier: " + identifier);
+		System.out.println("Identifier Type: " + identifierType);
+		System.out.println("Language: " + mapLang.get(language));
+		System.out.println("Author Name: " + getAuthorName());
+		System.out.println("Sort Name: " + getSortName());
+		System.out.println("Chapter Count: " + chapterCount);
+		for (boolean flag : checkBoxes)
+			System.out.println(flag);
+	}
 
 	public Model() {
 		mapLang.put("Abkhazian", "ab");
@@ -234,6 +274,16 @@ public class Model {
 		mapLang.put("Zhuang, Chuang", "za");
 		mapLang.put("Zulu", "zu");
 
+		for (int i = 0; i < checkBoxes.length; ++i)
+			checkBoxes[i] = false;
+		checkBoxes[CKB_TITLEPAGE] = true;
+		checkBoxes[CKB_COPYRIGHT] = true;
+		checkBoxes[CKB_DEDICATION] = true;
+		checkBoxes[CKB_TABLEOFCONTENTS] = true;
+		checkBoxes[CKB_PROLOGUE] = true;
+		checkBoxes[CKB_EPILOGUE] = true;
+		checkBoxes[CKB_BIOGRAPHY] = true;
+		checkBoxes[CKB_COLOPHON] = true;
 	}
 
 	public Set<String> getLanguageSet() {
@@ -293,6 +343,15 @@ public class Model {
 
 	public void decChapterCount() {
 		this.chapterCount--;
+	}
+
+	public boolean isCheckBox(int id) {
+        return checkBoxes[id];
+	}
+
+	public void setCheckBox(int id, boolean state) {
+//		System.out.println("setCheckBox(" + id + ", " + state + ")");
+		checkBoxes[id] = state;
 	}
 
 }
