@@ -110,7 +110,7 @@ public class MainController {
     void actionRemove(ActionEvent event) {
     	model.decChapterCount();
 		final int CHAPS = model.getChapterCount();
-		listChapters.add(new Chapter(CHAPS, "Chapter " + CHAPS));
+		listChapters.remove(CHAPS);
 
 //        System.out.println("actionRemove: " + CHAPS);
     }
