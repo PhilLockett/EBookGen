@@ -40,6 +40,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -48,7 +49,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.EBookGen.MainController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.EBookGen.MainController">
    <top>
       <GridPane alignment="CENTER_RIGHT" hgap="5.0" vgap="4.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -119,192 +120,213 @@
       </GridPane>
    </top>
    <right>
-      <VBox spacing="5.0" BorderPane.alignment="CENTER">
-         <children>
-            <CheckBox fx:id="ckbEpilogue" mnemonicParsing="false" onAction="#actionCheckBox" text="Epilogue">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbOutro" mnemonicParsing="false" onAction="#actionCheckBox" text="Outro">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbAfterword" mnemonicParsing="false" onAction="#actionCheckBox" text="Afterword">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbConclusion" mnemonicParsing="false" onAction="#actionCheckBox" text="Conclusion">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbPostscript" mnemonicParsing="false" onAction="#actionCheckBox" text="Postscript">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbAppendix" mnemonicParsing="false" onAction="#actionCheckBox" text="Appendix">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbGlossary" mnemonicParsing="false" onAction="#actionCheckBox" text="Glossary">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbBibliography" mnemonicParsing="false" onAction="#actionCheckBox" text="Bibliography">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbIndex" mnemonicParsing="false" onAction="#actionCheckBox" text="Index">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbBiography" mnemonicParsing="false" onAction="#actionCheckBox" text="Biography">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbColophon" mnemonicParsing="false" onAction="#actionCheckBox" text="Colophon">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbPostface" mnemonicParsing="false" onAction="#actionCheckBox" text="Postface">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-         </children>
-         <padding>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-         </padding>
+      <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" text="Back Matter" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
-      </VBox>
+         <content>
+            <VBox spacing="5.0">
+               <children>
+                  <CheckBox fx:id="ckbEpilogue" mnemonicParsing="false" onAction="#actionCheckBox" text="Epilogue">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbOutro" mnemonicParsing="false" onAction="#actionCheckBox" text="Outro">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbAfterword" mnemonicParsing="false" onAction="#actionCheckBox" text="Afterword">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbConclusion" mnemonicParsing="false" onAction="#actionCheckBox" text="Conclusion">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbPostscript" mnemonicParsing="false" onAction="#actionCheckBox" text="Postscript">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbAppendix" mnemonicParsing="false" onAction="#actionCheckBox" text="Appendix">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbGlossary" mnemonicParsing="false" onAction="#actionCheckBox" text="Glossary">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbBibliography" mnemonicParsing="false" onAction="#actionCheckBox" text="Bibliography">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbIndex" mnemonicParsing="false" onAction="#actionCheckBox" text="Index">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbBiography" mnemonicParsing="false" onAction="#actionCheckBox" text="Biography">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbColophon" mnemonicParsing="false" onAction="#actionCheckBox" text="Colophon">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbPostface" mnemonicParsing="false" onAction="#actionCheckBox" text="Postface">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </VBox>
+         </content>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </TitledPane>
    </right>
    <left>
-      <VBox spacing="5.0" BorderPane.alignment="CENTER">
-         <children>
-            <CheckBox fx:id="ckbHalfTitle" mnemonicParsing="false" onAction="#actionCheckBox" text="Half Title">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbFrontispiece" mnemonicParsing="false" onAction="#actionCheckBox" text="Frontispiece">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbTitlePage" mnemonicParsing="false" onAction="#actionCheckBox" text="Title Page">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbCopyright" mnemonicParsing="false" onAction="#actionCheckBox" text="Copyright">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbDedication" mnemonicParsing="false" onAction="#actionCheckBox" text="Dedication">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbEpigraph" mnemonicParsing="false" onAction="#actionCheckBox" text="Epigraph">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbTableOfContents" mnemonicParsing="false" onAction="#actionCheckBox" text="Table of Contents">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbForeword" mnemonicParsing="false" onAction="#actionCheckBox" text="Foreword">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbPreface" mnemonicParsing="false" onAction="#actionCheckBox" text="Preface">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbAcknowledgments" mnemonicParsing="false" onAction="#actionCheckBox" text="Acknowledgments">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbIntroduction" mnemonicParsing="false" onAction="#actionCheckBox" text="Introduction">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ckbPrologue" mnemonicParsing="false" onAction="#actionCheckBox" text="Prologue">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </CheckBox>
-         </children>
-         <padding>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-         </padding>
+      <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" text="Front Matter" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
-      </VBox>
+         <content>
+            <VBox spacing="5.0">
+               <children>
+                  <CheckBox fx:id="ckbHalfTitle" mnemonicParsing="false" onAction="#actionCheckBox" text="Half Title">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbFrontispiece" mnemonicParsing="false" onAction="#actionCheckBox" text="Frontispiece">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbTitlePage" mnemonicParsing="false" onAction="#actionCheckBox" text="Title Page">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbCopyright" mnemonicParsing="false" onAction="#actionCheckBox" text="Copyright">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbDedication" mnemonicParsing="false" onAction="#actionCheckBox" text="Dedication">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbEpigraph" mnemonicParsing="false" onAction="#actionCheckBox" text="Epigraph">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbTableOfContents" mnemonicParsing="false" onAction="#actionCheckBox" text="Table of Contents">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbForeword" mnemonicParsing="false" onAction="#actionCheckBox" text="Foreword">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbPreface" mnemonicParsing="false" onAction="#actionCheckBox" text="Preface">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbAcknowledgments" mnemonicParsing="false" onAction="#actionCheckBox" text="Acknowledgments">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbIntroduction" mnemonicParsing="false" onAction="#actionCheckBox" text="Introduction">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="ckbPrologue" mnemonicParsing="false" onAction="#actionCheckBox" text="Prologue">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </VBox>
+         </content>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </TitledPane>
    </left>
    <center>
-      <VBox spacing="5.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox>
-               <children>
-                  <Button fx:id="btnAppend" mnemonicParsing="false" onAction="#actionAppend" text="Append Chapter">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#actionRemove" text="Remove Last Chapter">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </HBox>
-            <TableView fx:id="tblChapters" editable="true">
-              <columns>
-                <TableColumn fx:id="colChapterNumber" editable="false" prefWidth="74.0" resizable="false" sortable="false" text="Id" />
-                <TableColumn fx:id="colChapterTitle" prefWidth="617.0" resizable="false" sortable="false" text="Chapter Title" />
-              </columns>
-            </TableView>
-         </children>
+      <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" text="Body Matter" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
+         <content>
+            <VBox spacing="5.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Button fx:id="btnAppend" mnemonicParsing="false" onAction="#actionAppend" text="Append Chapter">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#actionRemove" text="Remove Last Chapter">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="tblChapters" editable="true">
+                    <columns>
+                      <TableColumn fx:id="colChapterNumber" editable="false" prefWidth="74.0" resizable="false" sortable="false" text="Id" />
+                      <TableColumn fx:id="colChapterTitle" prefWidth="617.0" resizable="false" sortable="false" text="Chapter Title" />
+                    </columns>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </content>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </TitledPane>
    </center>
    <bottom>
       <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#actionGenerate" text="Generate Template" textAlignment="CENTER" BorderPane.alignment="CENTER">
