@@ -85,7 +85,7 @@ public class MainController {
     @FXML    private CheckBox ckbColophon;
     @FXML    private CheckBox ckbPostface;
 
-    private ObservableList<String> listIdentifierTypes = FXCollections.observableArrayList("ISDN", "URL");
+    private ObservableList<String> listIdentifierTypes = FXCollections.observableArrayList("UNDEFINED");
 	private ObservableList<String> listLanguages = FXCollections.observableArrayList("UNDEFINED");
 	private ObservableList<Chapter> listChapters = FXCollections.observableArrayList();
 
@@ -106,7 +106,7 @@ public class MainController {
 //        System.out.println("actionGenerate: " + event.toString());
         // Get Choice Box selections.
         model.setLanguage(cbxLanguage.getValue().toString());
-        model.setIdentifierType(cbxIdentifierType.getSelectionModel().getSelectedIndex());
+        model.setIdentifierType(cbxIdentifierType.getValue().toString());
         model.setIdentifier(txtBookIdentifier.getText());
         model.generate();
     }
@@ -225,14 +225,25 @@ public class MainController {
 		cbxLanguage.setItems(listLanguages);
 		cbxLanguage.getSelectionModel().select(index);
 
+		// Set up Identifier Types Selector here because we need acces to main.
+		i = 0;
+		index = 0;
+		final String identifierType = model.getIdentifierType();
+		listIdentifierTypes.clear();
+		for (String item : model.getIdTypeSet()) {
+			listIdentifierTypes.add(item);
+			if (item.compareTo(identifierType) == 0)
+				index = i;
+			i++;
+		}
+		cbxIdentifierType.setItems(listIdentifierTypes);
+		cbxIdentifierType.getSelectionModel().select(index);
+
 	    txtBookTitle.setText(model.getTitle());
 	    txtGivenNames.setText(model.getGivenNames());
 	    txtFamilyName.setText(model.getFamilyName());
 	    refreshNames();
 	    txtBookIdentifier.setText(model.getIdentifier());
-
-		cbxIdentifierType.setItems(listIdentifierTypes);
-		cbxIdentifierType.getSelectionModel().select(0);
 
 		colChapterNumber.setText("Id");
 		colChapterNumber.setCellValueFactory(new PropertyValueFactory<>("identifier"));

@@ -69,11 +69,12 @@ public class Model {
 	private String title = "Oliver Twist";
 	private String language = "English";
 	private String identifier = "isbn-123-1-12-123456-1";
-	private int identifierType = ISBN;
+	private String identifierType = "ISBN";
 
 	private int chapterCount = INITIAL_CHAPTER_COUNT;
 
 	private Map<String, String> mapLang = new TreeMap<>();
+	private Map<String, Integer> mapIdType = new TreeMap<>();
 //	private ObservableList<String> listLang = FXCollections.observableArrayList("UNDEFINED");
 
 	public void generate() {
@@ -89,6 +90,9 @@ public class Model {
 	}
 
 	public Model() {
+		mapIdType.put("ISBN", ISBN);
+		mapIdType.put("URL", URL);
+
 		mapLang.put("Abkhazian", "ab");
 		mapLang.put("Afar", "aa");
 		mapLang.put("Afrikaans", "af");
@@ -286,6 +290,10 @@ public class Model {
 		checkBoxes[CKB_COLOPHON] = true;
 	}
 
+	public Set<String> getIdTypeSet() {
+		return mapIdType.keySet();
+	}
+
 	public Set<String> getLanguageSet() {
 		return mapLang.keySet();
 	}
@@ -326,10 +334,10 @@ public class Model {
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
-	public int getIdentifierType() {
+	public String getIdentifierType() {
 		return identifierType;
 	}
-	public void setIdentifierType(int identifierType) {
+	public void setIdentifierType(String identifierType) {
 		this.identifierType = identifierType;
 	}
 
