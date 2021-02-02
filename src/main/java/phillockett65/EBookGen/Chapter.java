@@ -2,7 +2,7 @@
  *
  *  Copyright 2021 Philip Lockett.
  *
- *  This file is part of PTDesigner.
+ *  This file is part of EBookGen.
  *
  *  EBookGen is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
