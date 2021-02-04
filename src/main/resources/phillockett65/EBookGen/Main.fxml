@@ -63,6 +63,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER_RIGHT" text="Book Title:" GridPane.halignment="RIGHT">
@@ -113,6 +114,18 @@
                </font>
             </Label>
             <Label fx:id="datSortName" text="Dickens" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label text="Publisher:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPublisher" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Year:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtYear" GridPane.columnIndex="3" GridPane.rowIndex="4" />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />

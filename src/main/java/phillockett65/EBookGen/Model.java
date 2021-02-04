@@ -70,6 +70,8 @@ public class Model {
 	private String language = "English";
 	private String identifier = "isbn-123-1-12-123456-1";
 	private String identifierType = "ISBN";
+    private String publisher;
+    private String year;
 
 	private int chapterCount = INITIAL_CHAPTER_COUNT;
 
@@ -339,6 +341,18 @@ public class Model {
 	}
 	public void setIdentifierType(String identifierType) {
 		this.identifierType = identifierType;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
 	}
 
 	public int getChapterCount() {

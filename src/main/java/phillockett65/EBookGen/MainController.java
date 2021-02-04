@@ -51,6 +51,8 @@ public class MainController {
     @FXML    private TextField txtBookIdentifier;
     @FXML    private ChoiceBox cbxIdentifierType;
     @FXML    private ChoiceBox cbxLanguage;
+    @FXML    private TextField txtPublisher;
+    @FXML    private TextField txtYear;
 
     // Front Matter.
     @FXML    private CheckBox ckbHalfTitle;
