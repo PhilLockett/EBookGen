@@ -24,6 +24,12 @@
  */
 package phillockett65.EBookGen;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -77,7 +83,185 @@ public class Model {
 
 	private Map<String, String> mapLang = new TreeMap<>();
 	private Map<String, Integer> mapIdType = new TreeMap<>();
-//	private ObservableList<String> listLang = FXCollections.observableArrayList("UNDEFINED");
+	private ArrayList<Entry> contents = new ArrayList<>();
+
+	public void copyFile(String sourceFile, String targetDirectory) {
+		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
+
+		File target = new File(targetDirectory + "/" + sourceFile);
+		if (target.exists())
+			return;
+		
+		String sourcePath = App.class.getResource("copyfiles/" + sourceFile).getFile();
+		File source = new File(sourcePath);
+		try {
+			Files.copy(source.toPath(), target.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteFilesAndDirs(File target) {
+		if (target.isDirectory()) {
+			if (target.list().length == 0) {
+				target.delete();
+			} else {
+				File[] files = target.listFiles();
+				for (File fileDelete : files) {
+					deleteFilesAndDirs(fileDelete);
+				}
+
+				if (target.list().length == 0) {
+					target.delete();
+				}
+			}
+		} else {
+			target.delete();
+		}
+		
+	}
+
+	public void deleteDirectory(String path) {
+		File rootDir = new File(path);
+		if (!rootDir.exists()) {
+			return;
+		}
+
+		deleteFilesAndDirs(rootDir);
+	}
+
+	public void genTitlePage(String target, String path, boolean full) {
+		final String file = path + "\\" + target;
+		System.out.println("Generating " + file);
+        try (FileWriter writer = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(writer)) {
+
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
+            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
+            bw.write("<head>\n");
+            bw.write("<title>" + title + "</title>\n");
+            bw.write("\n");
+            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
+            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+            bw.write("</head>\n");
+            bw.write("\n");
+            bw.write("<body class=\"mainbody\">\n");
+            bw.write("  <div class=\"centeraligntext\">\n");
+            bw.write("\n");
+            bw.write("	<h1>\n");
+            bw.write("	" + title + "\n");
+            bw.write("	</h1>\n");
+            if (full) {
+                bw.write("\n");
+                bw.write("	<p>\n");
+                bw.write("	by " + getAuthorName() + "\n");
+                bw.write("	</p>\n");
+                if (publisher != null && publisher.length() != 0) {
+                    bw.write("	<p>\n");
+                    bw.write("	" + publisher + "\n");
+                    bw.write("	</p>\n");
+                }
+                if (year != null && year.length() != 0) {
+                    bw.write("	<p>\n");
+                    bw.write("	" + year + "\n");
+                    bw.write("	</p>\n");
+                }
+            }
+            bw.write("\n");
+            bw.write("  </div>\n");
+            bw.write("</body>\n");
+            bw.write("</html>\n");
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
+	public void genChapterPage(String target, String path, String title) {
+		final String file = path + "\\" + target;
+		System.out.println("Generating " + file);
+        try (FileWriter writer = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(writer)) {
+
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
+            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
+            bw.write("<head>\n");
+            bw.write("<title>" + title + "</title>\n");
+            bw.write("\n");
+            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
+            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+            bw.write("</head>\n");
+            bw.write("\n");
+            bw.write("<body class=\"mainbody\">\n");
+            bw.write("  <div class=\"paragraphtext\">\n");
+            bw.write("\n");
+            bw.write("	<h1>\n");
+            bw.write("	" + title + "\n");
+            bw.write("	</h1>\n");
+            bw.write("	<br/>\n");
+            bw.write("	<br/>\n");
+            bw.write("	<p>“Lorem ipsum dolor sit amet”, consectetuer adipiscing elit. <i>Nunc</i></p><p> If these free tutorial files helped you, show your appreciation by buying a novel or book written by author <a href=\"http://www.EricMuss-Barnes.com\">Eric Muss-Barnes</a> at <a href=\"http://www.DubhSithInk.com\">http://www.DubhSithInk.com</a> and check out his blog at <a href=\"http://www.InkShard.com\">http://www.InkShard.com</a>.</p><p>Cras vitae sem ut mi commodo scelerisque. Nulla tellus dolor, lacinia in, luctus sed, hendrerit id, massa. Sed sollicitudin, orci id fringilla dapibus, nisi massa cursus justo, nec tincidunt arcu sem et diam. Ut vel massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In justo neque, semper cursus, mattis euismod, viverra rhoncus, libero. Cras feugiat, mauris vel dapibus mollis, ipsum dui auctor lectus, in vulputate eros nulla eu dui. In eu augue. Phasellus vel magna. Aliquam feugiat ultrices quam. “Quisque et nulla.” Sed varius, turpis sit amet aliquam gravida, sem urna mattis massa, non nonummy mi dolor quis pede. Donec a erat vel lectus condimentum nonummy. Nunc id diam ac odio congue scelerisque. Proin semper pretium mauris. Etiam mollis, nulla eu sodales suscipit, tellus tortor accumsan sapien, in ornare nibh dolor at lorem. Donec varius ultricies ligula. Nullam ornare odio eget justo.</p>\n");
+            bw.write("\n");
+            bw.write("<p>If these free tutorial files helped you, show your appreciation by buying a novel or book written by author <a href=\"http://www.EricMuss-Barnes.com\">Eric Muss-Barnes</a> at <a href=\"http://www.DubhSithInk.com\">http://www.DubhSithInk.com</a> and check out his blog at <a href=\"http://www.InkShard.com\">http://www.InkShard.com</a>.</p><p>Suspendisse quis diam. Vivamus ullamcorper, neque non tincidunt gravida, lectus turpis fringilla neque, a bibendum ante enim et mi. “Aliquam erat volutpat.” “Aliquam erat volutpat.” Suspendisse et dui. Cras sit amet risus. Donec pharetra consequat purus. Curabitur massa ante, luctus non, tincidunt et, rhoncus ut, sem. Sed rutrum mi sit amet velit. Sed eget ante. Sed tellus lorem, vehicula vel, mollis quis, venenatis quis, elit. Donec nibh. Ut in odio consequat ipsum commodo pellentesque. In nec quam. Curabitur commodo libero in neque. </p>\n");
+            bw.write("\n");
+            bw.write("<p>If these free tutorial files helped you, show your appreciation by buying a novel or book written by author <a href=\"http://www.EricMuss-Barnes.com\">Eric Muss-Barnes</a> at <a href=\"http://www.DubhSithInk.com\">http://www.DubhSithInk.com</a> and check out his blog at <a href=\"http://www.InkShard.com\">http://www.InkShard.com</a>.</p><p>DO NOT FORGET TO CLOSE YOUR PARAGRAPH TAGS! This is a requirement in XHTML.. Curabitur nibh justo, posuere condimentum, pulvinar nec, congue ac, urna. Aliquam non dolor at lectus ultrices elementum. Vivamus sodales diam sed massa. Sed vel lectus in nunc luctus viverra. Nulla varius commodo leo. Nullam viverra iaculis ligula. Sed aliquam arcu nec nulla. “Aliquam erat volutpat.” Praesent mollis suscipit ante. Curabitur tristique auctor felis. </p>\n");
+            bw.write("\n");
+            bw.write("<p>Bold can be done with <b>regular bold tags</b> while italics <i>can be done with italics tags</i>.. Ut erat turpis, vehicula et, rutrum quis, tincidunt eu, urna. Vestibulum blandit, neque et laoreet sagittis, leo nunc ultricies metus, at faucibus purus ante sed enim. Duis rutrum. Quisque eleifend erat vel lacus. Maecenas elementum nulla sed erat. Donec vulputate dapibus ligula. Nunc neque pede, malesuada sit amet, ultricies vel, sollicitudin ut, neque. Praesent ultrices nunc at elit. Proin lorem sem, blandit in, pulvinar interdum, cursus a, arcu.</p> \n");
+            bw.write("\n");
+            bw.write("<ul><li>&#169; (copyright)</li><li>&#167; (section)</li><li>&#8212; (em dash)</li><li>&#8211; (en dash)</li><li>&#8226; (bullet)</li><li>&#8230; (ellipsis)</li></ul>. <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris et libero condimentum mi eleifend tempus. Ut faucibus, arcu eget lacinia placerat, odio neque interdum ante, nec adipiscing justo velit non turpis. Nullam nec est quis massa dictum ornare. Sed est massa, tempor sit amet, tristique nec, fringilla nec, mi. Curabitur sollicitudin dictum tellus. Nunc urna. </p><p>If these free tutorial files helped you, show your appreciation by buying a novel or book written by author <a href=\"http://www.EricMuss-Barnes.com\">Eric Muss-Barnes</a> at <a href=\"http://www.DubhSithInk.com\">http://www.DubhSithInk.com</a> and check out his blog at <a href=\"http://www.InkShard.com\">http://www.InkShard.com</a>.</p>\n");
+            bw.write("\n");
+            bw.write("  </div>\n");
+            bw.write("</body>\n");
+            bw.write("</html>\n");
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
+	public void genContentsPage(String target, String path) {
+		final String file = path + "\\" + target;
+		System.out.println("Generating " + file);
+        try (FileWriter writer = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(writer)) {
+
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
+            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
+            bw.write("<head>\n");
+            bw.write("<title>Table of Contents</title>\n");
+            bw.write("\n");
+            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
+            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+            bw.write("</head>\n");
+            bw.write("\n");
+            bw.write("<body class=\"mainbody\">\n");
+            bw.write("  <div class=\"paragraphtext\">\n");
+            bw.write("\n");
+            bw.write("	<h1>\n");
+            bw.write("	Table of Contents\n");
+            bw.write("	</h1>\n");
+            bw.write("	<br/>\n");
+            bw.write("	<br/>\n");
+            bw.write("	<div class=\"centeraligntext\">\n");
+            bw.write("	  <h2>" + title + "</h2>\n");
+            bw.write("	  <h3>by " + getAuthorName() + "</h3>\n");
+            bw.write("	</div>\n");
+            bw.write("	<br/>\n");
+
+            for (Entry entry : contents)
+                bw.write(entry.toString());
+
+            bw.write("  </div>\n");
+            bw.write("</body>\n");
+            bw.write("</html>\n");
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 
 	public void generate() {
 		System.out.println("Book Title: " + title);
@@ -87,8 +271,80 @@ public class Model {
 		System.out.println("Author Name: " + getAuthorName());
 		System.out.println("Sort Name: " + getSortName());
 		System.out.println("Chapter Count: " + chapterCount);
-		for (boolean flag : checkBoxes)
-			System.out.println(flag);
+
+		contents.clear();
+
+		// Clean out existing file structure.
+		final String path = "Template";
+		deleteDirectory(path);
+
+		// Build the directory structure
+		File rootDir = new File(path);
+		rootDir.mkdir();
+		File metaDir = new File(path + "/META-INF");
+		metaDir.mkdir();
+		File dir = new File(path + "/OEBPS");
+		dir.mkdir();
+
+		// Copy mime type file.
+		copyFile("mimetype", rootDir.getPath());
+
+		// Copy meta file.
+		copyFile("container.xml", metaDir.getPath());
+
+		// Copy content files.
+		copyFile("bookcover.xhtml", dir.getPath());
+		copyFile("cover.jpg", dir.getPath());
+		copyFile("backcover.xhtml", dir.getPath());
+		copyFile("backcover.jpg", dir.getPath());
+		copyFile("stylesheet.css", dir.getPath());
+
+		if (checkBoxes[CKB_HALFTITLE]) {
+			genTitlePage("halftitle.xhtml", dir.getPath(), false);
+		}
+		if (checkBoxes[CKB_FRONTISPIECE]) {
+			copyFile("frontispiece.xhtml", dir.getPath());
+			copyFile("frontispiece.jpg", dir.getPath());
+		}
+		if (checkBoxes[CKB_TITLEPAGE]) {
+			genTitlePage("titlepage.xhtml", dir.getPath(), true);
+			contents.add(new Entry("Titie", "titlepage.xhtml"));
+		}
+		if (checkBoxes[CKB_COPYRIGHT]) {
+			copyFile("copyright.xhtml", dir.getPath());
+			contents.add(new Entry("Copyright", "copyright.xhtml"));
+		}
+		if (checkBoxes[CKB_DEDICATION]) {
+			copyFile("dedication.xhtml", dir.getPath());
+			contents.add(new Entry("Dedication", "dedication.xhtml"));
+		}
+		if (checkBoxes[CKB_PROLOGUE]) {
+			genChapterPage("prologue.xhtml", dir.getPath(), "Prologue");
+			contents.add(new Entry("Prologue", "prologue.xhtml"));
+		}
+
+		for (int i = 1; i <= chapterCount; ++i) {
+			String file = String.format("chap%02d.xhtml", i);
+			String title = "Chapter " + i;
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+		}
+
+		if (checkBoxes[CKB_EPILOGUE]) {
+			genChapterPage("epilogue.xhtml", dir.getPath(), "Epilogue");
+			contents.add(new Entry("Epilogue", "epilogue.xhtml"));
+		}
+		if (checkBoxes[CKB_BIOGRAPHY]) {
+			copyFile("biography.xhtml", dir.getPath());
+			copyFile("author.jpg", dir.getPath());
+			contents.add(new Entry("Biography", "biography.xhtml"));
+		}
+		if (checkBoxes[CKB_COLOPHON]) {
+			copyFile("colophon.xhtml", dir.getPath());
+			contents.add(new Entry("Colophon", "colophon.xhtml"));
+		}
+
+		genContentsPage("toc.xhtml", dir.getPath());
 	}
 
 	public Model() {
