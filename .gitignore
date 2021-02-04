@@ -1,4 +1,5 @@
 bin/
 target/
+Template/
 .classpath
 .settings
