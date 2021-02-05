@@ -85,9 +85,6 @@ public class MainController {
     @FXML    private CheckBox ckbColophon;
     @FXML    private CheckBox ckbPostface;
 
-    private ObservableList<String> listIdentifierTypes = FXCollections.observableArrayList("UNDEFINED");
-	private ObservableList<String> listLanguages = FXCollections.observableArrayList("UNDEFINED");
-
 	private Model model;
 
 
@@ -206,33 +203,13 @@ public class MainController {
 	 */
 	@FXML public void initialize() {
 //		System.out.println("MainController initialized.");
-		// Set up Language Selector here because we need acces to main.
-		int i = 0;
-		int index = 0;
-		final String language = model.getLanguage();
-		listLanguages.clear();
-		for (String item : model.getLanguageSet()) {
-			listLanguages.add(item);
-			if (item.compareTo(language) == 0)
-				index = i;
-			i++;
-		}
-		cbxLanguage.setItems(listLanguages);
-		cbxLanguage.getSelectionModel().select(index);
+		// Set up Language Selector here because we need access to main.
+		cbxLanguage.setItems(model.getListLanguages());
+		cbxLanguage.getSelectionModel().select(model.getInitialLanguageMapIndex());
 
 		// Set up Identifier Types Selector here because we need access to main.
-		i = 0;
-		index = 0;
-		final String identifierType = model.getIdentifierType();
-		listIdentifierTypes.clear();
-		for (String item : model.getIdTypeSet()) {
-			listIdentifierTypes.add(item);
-			if (item.compareTo(identifierType) == 0)
-				index = i;
-			i++;
-		}
-		cbxIdentifierType.setItems(listIdentifierTypes);
-		cbxIdentifierType.getSelectionModel().select(index);
+		cbxIdentifierType.setItems(model.getListIdentifierTypes());
+		cbxIdentifierType.getSelectionModel().select(model.getInitialIdTypeMapIndex());
 
 	    txtBookTitle.setText(model.getTitle());
 	    txtGivenNames.setText(model.getGivenNames());

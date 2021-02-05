@@ -81,20 +81,27 @@ public class Model {
 	private String familyName = "Dickens";
 	private String givenNames = "Charles";
 	private String title = "Oliver Twist";
-	private String language = "English";
+
 	private String identifier = "isbn-123-1-12-123456-1";
-	private String identifierType = "ISBN";
-    private String publisher = "";
-    private String year = "";
+	private String publisher = "";
+	private String year = "";
 
 	private int chapterCount = INITIAL_CHAPTER_COUNT;
 
-	private Map<String, String> mapLang = new TreeMap<>();
-	private Map<String, Integer> mapIdType = new TreeMap<>();
 	private ArrayList<Entry> contents = new ArrayList<>();
 	private ArrayList<NavPoint> navMap = new ArrayList<>();
 	private ArrayList<Item> manifest = new ArrayList<>();
 	private ArrayList<ItemRef> spine = new ArrayList<>();
+
+	private Map<String, String> mapLang = new TreeMap<>();
+	private ObservableList<String> listIdentifierTypes = FXCollections.observableArrayList("UNDEFINED");
+	private String language = "English";
+	private int initialLanguageMapIndex = 0;
+
+	private Map<String, Integer> mapIdType = new TreeMap<>();
+	private ObservableList<String> listLanguages = FXCollections.observableArrayList("UNDEFINED");
+	private String identifierType = "ISBN";
+	private int initialIdTypeMapIndex = 0;
 
 	private ObservableList<Chapter> listChapters = FXCollections.observableArrayList();
 
@@ -677,6 +684,15 @@ public class Model {
 	private void initIdTypeMap() {
 		mapIdType.put("ISBN", ISBN);
 		mapIdType.put("URL", URL);
+
+		int i = 0;
+		listIdentifierTypes.clear();
+		for (String item : mapIdType.keySet()) {
+			listIdentifierTypes.add(item);
+			if (item.compareTo(identifierType) == 0)
+				initialIdTypeMapIndex = i;
+			i++;
+		}
 	}
 
 	private void initLanguageMap() {
@@ -864,6 +880,15 @@ public class Model {
 		mapLang.put("Yoruba", "yo");
 		mapLang.put("Zhuang, Chuang", "za");
 		mapLang.put("Zulu", "zu");
+
+		int i = 0;
+		listLanguages.clear();
+		for (String item : mapLang.keySet()) {
+			listLanguages.add(item);
+			if (item.compareTo(language) == 0)
+				initialLanguageMapIndex = i;
+			i++;
+		}
 	}
 
 	private void initCheckBoxes() {
@@ -893,12 +918,20 @@ public class Model {
 		initChaptersList();
 	}
 
-	public Set<String> getIdTypeSet() {
-		return mapIdType.keySet();
+	public int getInitialIdTypeMapIndex() {
+		return initialIdTypeMapIndex;
 	}
 
-	public Set<String> getLanguageSet() {
-		return mapLang.keySet();
+	public ObservableList<String> getListIdentifierTypes() {
+		return listIdentifierTypes;
+	}
+
+	public int getInitialLanguageMapIndex() {
+		return initialLanguageMapIndex;
+	}
+
+	public ObservableList<String> getListLanguages() {
+		return listLanguages;
 	}
 
 	public String getFamilyName() {
@@ -925,9 +958,6 @@ public class Model {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getLanguage() {
-		return language;
-	}
 	public void setLanguage(String language) {
 		this.language = language;
 	}
@@ -936,9 +966,6 @@ public class Model {
 	}
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
-	}
-	public String getIdentifierType() {
-		return identifierType;
 	}
 	public void setIdentifierType(String identifierType) {
 		this.identifierType = identifierType;
