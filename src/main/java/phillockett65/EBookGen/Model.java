@@ -321,7 +321,7 @@ public class Model {
             bw.write("<package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"BookId\" version=\"2.0\">\n");
             bw.write("	<metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:opf=\"http://www.idpf.org/2007/opf\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n");
             bw.write("		<dc:title>" + title + "</dc:title>\n");
-            bw.write("		<dc:language>" + language + "</dc:language>\n");
+            bw.write("		<dc:language>" + mapLang.get(language) + "</dc:language>\n");
             bw.write("		<dc:identifier id=\"BookId\" opf:scheme=\"" + identifierType + "\">" + identifier + "</dc:identifier>\n");
             bw.write("		<dc:creator>" + getAuthorName() + "</dc:creator>\n");
             bw.write("		<dc:publisher>" + publisher + "</dc:publisher>\n");
