@@ -669,6 +669,7 @@ public class Model {
 			manifest.add(new Item("my-author-image", "author.jpg", MT_JPG));
 		if (checkBoxes[CKB_FRONTISPIECE])
 			manifest.add(new Item("frontispiece-image", "frontispiece.jpg", MT_JPG));
+		manifest.add(new Item("backcover", "backcover.xhtml", MT_XHTML));
 		manifest.add(new Item("my-cover-image", "cover.jpg", MT_JPG));
 		manifest.add(new Item("backcover-image", "backcover.jpg", MT_JPG));
 		spine.add(new ItemRef("backcover", true));
