@@ -87,18 +87,14 @@ public class MainController {
 
     private ObservableList<String> listIdentifierTypes = FXCollections.observableArrayList("UNDEFINED");
 	private ObservableList<String> listLanguages = FXCollections.observableArrayList("UNDEFINED");
-	private ObservableList<Chapter> listChapters = FXCollections.observableArrayList();
 
 	private Model model;
 
 
     @FXML
     void actionAppend(ActionEvent event) {
-    	model.incChapterCount();
-		final int CHAPS = model.getChapterCount();
-		listChapters.add(new Chapter(CHAPS, "Chapter " + CHAPS));
-
-//        System.out.println("actionAppend: " + CHAPS);
+//      System.out.println("actionAppend()");
+        model.addChapter();
     }
 
     @FXML
@@ -115,11 +111,8 @@ public class MainController {
 
     @FXML
     void actionRemove(ActionEvent event) {
-    	model.decChapterCount();
-		final int CHAPS = model.getChapterCount();
-		listChapters.remove(CHAPS);
-
-//        System.out.println("actionRemove: " + CHAPS);
+//      System.out.println("actionRemove()");
+        model.removeChapter();
     }
 
     @FXML
@@ -227,7 +220,7 @@ public class MainController {
 		cbxLanguage.setItems(listLanguages);
 		cbxLanguage.getSelectionModel().select(index);
 
-		// Set up Identifier Types Selector here because we need acces to main.
+		// Set up Identifier Types Selector here because we need access to main.
 		i = 0;
 		index = 0;
 		final String identifierType = model.getIdentifierType();
@@ -252,12 +245,7 @@ public class MainController {
 		colChapterTitle.setText("Chapter Heading");
 		colChapterTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-		listChapters.clear();
-		final int CHAPS = model.getChapterCount();
-		for (i = 1; i <= CHAPS; ++i) {
-			listChapters.add(new Chapter(i, "Chapter " + i));
-		}
-		tblChapters.setItems(listChapters);
+		tblChapters.setItems(model.getListChapters());
 
 		// Set up the Check Boxes.
 		ckbHalfTitle.setSelected(model.isCheckBox(model.CKB_HALFTITLE));

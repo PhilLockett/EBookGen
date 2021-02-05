@@ -34,6 +34,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 public class Model {
 
@@ -92,6 +95,12 @@ public class Model {
 	private ArrayList<NavPoint> navMap = new ArrayList<>();
 	private ArrayList<Item> manifest = new ArrayList<>();
 	private ArrayList<ItemRef> spine = new ArrayList<>();
+
+	private ObservableList<Chapter> listChapters = FXCollections.observableArrayList();
+
+	public ObservableList<Chapter> getListChapters() {
+		return listChapters;
+	}
 
 	public void copyFile(String sourceFile, String targetDirectory) {
 //		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
@@ -520,7 +529,7 @@ public class Model {
 		for (int i = 1; i <= chapterCount; ++i) {
 			String file = String.format("chap%02d.xhtml", i);
 			String id = String.format("chap%02d", i);
-			String title = "Chapter " + i;
+			String title =  listChapters.get(i-1).getTitle();
 			genChapterPage(file, dir.getPath(), title);
 			contents.add(new Entry(title, file));
 			navMap.add(new NavPoint(id, title, file));
@@ -864,6 +873,11 @@ public class Model {
 		checkBoxes[CKB_EPILOGUE] = true;
 		checkBoxes[CKB_BIOGRAPHY] = true;
 		checkBoxes[CKB_COLOPHON] = true;
+
+		listChapters.clear();
+		for (int i = 1; i <= chapterCount; ++i) {
+			listChapters.add(new Chapter(i, "Chapter " + i));
+		}
 	}
 
 	public Set<String> getIdTypeSet() {
@@ -929,16 +943,17 @@ public class Model {
 		this.year = year;
 	}
 
-	public int getChapterCount() {
+	public int addChapter() {
+		chapterCount++;
+		listChapters.add(new Chapter(chapterCount, "Chapter " + chapterCount));
+
 		return chapterCount;
 	}
+	public int removeChapter() {
+		chapterCount--;
+		listChapters.remove(chapterCount);
 
-	public void incChapterCount() {
-		this.chapterCount++;
-	}
-
-	public void decChapterCount() {
-		this.chapterCount--;
+		return chapterCount;
 	}
 
 	public boolean isCheckBox(int id) {
