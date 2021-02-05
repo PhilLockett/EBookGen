@@ -45,8 +45,8 @@ public class MainController {
     @FXML    private TextField txtFamilyName;
     @FXML    private TextField txtBookTitle;
     @FXML    private TextField txtBookIdentifier;
-    @FXML    private ChoiceBox cbxIdentifierType;
-    @FXML    private ChoiceBox cbxLanguage;
+    @FXML    private ChoiceBox<String> cbxIdentifierType;
+    @FXML    private ChoiceBox<String> cbxLanguage;
     @FXML    private TextField txtPublisher;
     @FXML    private TextField txtYear;
 
@@ -117,55 +117,55 @@ public class MainController {
         CheckBox cb = (CheckBox) event.getSource();
         int cbid = -1;
         if (cb.equals(ckbHalfTitle))
-        	cbid = model.CKB_HALFTITLE;
+        	cbid = Model.CKB_HALFTITLE;
         else if (cb.equals(ckbFrontispiece))
-        	cbid = model.CKB_FRONTISPIECE;
+        	cbid = Model.CKB_FRONTISPIECE;
     	else if (cb.equals(ckbFrontispiece))
-    		cbid = model.CKB_FRONTISPIECE;
+    		cbid = Model.CKB_FRONTISPIECE;
     	else if (cb.equals(ckbTitlePage))
-    		cbid = model.CKB_TITLEPAGE;
+    		cbid = Model.CKB_TITLEPAGE;
     	else if (cb.equals(ckbCopyright))
-    		cbid = model.CKB_COPYRIGHT;
+    		cbid = Model.CKB_COPYRIGHT;
     	else if (cb.equals(ckbDedication))
-    		cbid = model.CKB_DEDICATION;
+    		cbid = Model.CKB_DEDICATION;
     	else if (cb.equals(ckbEpigraph))
-    		cbid = model.CKB_EPIGRAPH;
+    		cbid = Model.CKB_EPIGRAPH;
     	else if (cb.equals(ckbTableOfContents))
-    		cbid = model.CKB_TABLEOFCONTENTS;
+    		cbid = Model.CKB_TABLEOFCONTENTS;
     	else if (cb.equals(ckbForeword))
-    		cbid = model.CKB_FOREWORD;
+    		cbid = Model.CKB_FOREWORD;
     	else if (cb.equals(ckbPreface))
-    		cbid = model.CKB_PREFACE;
+    		cbid = Model.CKB_PREFACE;
     	else if (cb.equals(ckbAcknowledgments))
-    		cbid = model.CKB_ACKNOWLEDGMENTS;
+    		cbid = Model.CKB_ACKNOWLEDGMENTS;
     	else if (cb.equals(ckbIntroduction))
-    		cbid = model.CKB_INTRODUCTION;
+    		cbid = Model.CKB_INTRODUCTION;
     	else if (cb.equals(ckbPrologue))
-    		cbid = model.CKB_PROLOGUE;
+    		cbid = Model.CKB_PROLOGUE;
     	else if (cb.equals(ckbEpilogue))
-    		cbid = model.CKB_EPILOGUE;
+    		cbid = Model.CKB_EPILOGUE;
     	else if (cb.equals(ckbOutro))
-    		cbid = model.CKB_OUTRO;
+    		cbid = Model.CKB_OUTRO;
     	else if (cb.equals(ckbAfterword))
-    		cbid = model.CKB_AFTERWORD;
+    		cbid = Model.CKB_AFTERWORD;
     	else if (cb.equals(ckbConclusion))
-    		cbid = model.CKB_CONCLUSION;
+    		cbid = Model.CKB_CONCLUSION;
     	else if (cb.equals(ckbPostscript))
-    		cbid = model.CKB_POSTSCRIPT;
+    		cbid = Model.CKB_POSTSCRIPT;
     	else if (cb.equals(ckbAppendix))
-    		cbid = model.CKB_APPENDIX;
+    		cbid = Model.CKB_APPENDIX;
     	else if (cb.equals(ckbGlossary))
-    		cbid = model.CKB_GLOSSARY;
+    		cbid = Model.CKB_GLOSSARY;
     	else if (cb.equals(ckbBibliography))
-    		cbid = model.CKB_BIBLIOGRAPHY;
+    		cbid = Model.CKB_BIBLIOGRAPHY;
     	else if (cb.equals(ckbIndex))
-    		cbid = model.CKB_INDEX;
+    		cbid = Model.CKB_INDEX;
     	else if (cb.equals(ckbBiography))
-    		cbid = model.CKB_BIOGRAPHY;
+    		cbid = Model.CKB_BIOGRAPHY;
     	else if (cb.equals(ckbColophon))
-    		cbid = model.CKB_COLOPHON;
+    		cbid = Model.CKB_COLOPHON;
     	else if (cb.equals(ckbPostface))
-    		cbid = model.CKB_POSTFACE;
+    		cbid = Model.CKB_POSTFACE;
 
         model.setCheckBox(cbid, cb.isSelected());
     }
@@ -226,30 +226,30 @@ public class MainController {
 		tblChapters.setItems(model.getListChapters());
 
 		// Set up the Check Boxes.
-		ckbHalfTitle.setSelected(model.isCheckBox(model.CKB_HALFTITLE));
-		ckbFrontispiece.setSelected(model.isCheckBox(model.CKB_FRONTISPIECE));
-		ckbTitlePage.setSelected(model.isCheckBox(model.CKB_TITLEPAGE));
-		ckbCopyright.setSelected(model.isCheckBox(model.CKB_COPYRIGHT));
-		ckbDedication.setSelected(model.isCheckBox(model.CKB_DEDICATION));
-		ckbEpigraph.setSelected(model.isCheckBox(model.CKB_EPIGRAPH));
-		ckbTableOfContents.setSelected(model.isCheckBox(model.CKB_TABLEOFCONTENTS));
-		ckbForeword.setSelected(model.isCheckBox(model.CKB_FOREWORD));
-		ckbPreface.setSelected(model.isCheckBox(model.CKB_PREFACE));
-		ckbAcknowledgments.setSelected(model.isCheckBox(model.CKB_ACKNOWLEDGMENTS));
-		ckbIntroduction.setSelected(model.isCheckBox(model.CKB_INTRODUCTION));
-		ckbPrologue.setSelected(model.isCheckBox(model.CKB_PROLOGUE));
-		ckbEpilogue.setSelected(model.isCheckBox(model.CKB_EPILOGUE));
-		ckbOutro.setSelected(model.isCheckBox(model.CKB_OUTRO));
-		ckbAfterword.setSelected(model.isCheckBox(model.CKB_AFTERWORD));
-		ckbConclusion.setSelected(model.isCheckBox(model.CKB_CONCLUSION));
-		ckbPostscript.setSelected(model.isCheckBox(model.CKB_POSTSCRIPT));
-		ckbAppendix.setSelected(model.isCheckBox(model.CKB_APPENDIX));
-		ckbGlossary.setSelected(model.isCheckBox(model.CKB_GLOSSARY));
-		ckbBibliography.setSelected(model.isCheckBox(model.CKB_BIBLIOGRAPHY));
-		ckbIndex.setSelected(model.isCheckBox(model.CKB_INDEX));
-		ckbBiography.setSelected(model.isCheckBox(model.CKB_BIOGRAPHY));
-		ckbColophon.setSelected(model.isCheckBox(model.CKB_COLOPHON));
-		ckbPostface.setSelected(model.isCheckBox(model.CKB_POSTFACE));
+		ckbHalfTitle.setSelected(model.isCheckBox(Model.CKB_HALFTITLE));
+		ckbFrontispiece.setSelected(model.isCheckBox(Model.CKB_FRONTISPIECE));
+		ckbTitlePage.setSelected(model.isCheckBox(Model.CKB_TITLEPAGE));
+		ckbCopyright.setSelected(model.isCheckBox(Model.CKB_COPYRIGHT));
+		ckbDedication.setSelected(model.isCheckBox(Model.CKB_DEDICATION));
+		ckbEpigraph.setSelected(model.isCheckBox(Model.CKB_EPIGRAPH));
+		ckbTableOfContents.setSelected(model.isCheckBox(Model.CKB_TABLEOFCONTENTS));
+		ckbForeword.setSelected(model.isCheckBox(Model.CKB_FOREWORD));
+		ckbPreface.setSelected(model.isCheckBox(Model.CKB_PREFACE));
+		ckbAcknowledgments.setSelected(model.isCheckBox(Model.CKB_ACKNOWLEDGMENTS));
+		ckbIntroduction.setSelected(model.isCheckBox(Model.CKB_INTRODUCTION));
+		ckbPrologue.setSelected(model.isCheckBox(Model.CKB_PROLOGUE));
+		ckbEpilogue.setSelected(model.isCheckBox(Model.CKB_EPILOGUE));
+		ckbOutro.setSelected(model.isCheckBox(Model.CKB_OUTRO));
+		ckbAfterword.setSelected(model.isCheckBox(Model.CKB_AFTERWORD));
+		ckbConclusion.setSelected(model.isCheckBox(Model.CKB_CONCLUSION));
+		ckbPostscript.setSelected(model.isCheckBox(Model.CKB_POSTSCRIPT));
+		ckbAppendix.setSelected(model.isCheckBox(Model.CKB_APPENDIX));
+		ckbGlossary.setSelected(model.isCheckBox(Model.CKB_GLOSSARY));
+		ckbBibliography.setSelected(model.isCheckBox(Model.CKB_BIBLIOGRAPHY));
+		ckbIndex.setSelected(model.isCheckBox(Model.CKB_INDEX));
+		ckbBiography.setSelected(model.isCheckBox(Model.CKB_BIOGRAPHY));
+		ckbColophon.setSelected(model.isCheckBox(Model.CKB_COLOPHON));
+		ckbPostface.setSelected(model.isCheckBox(Model.CKB_POSTFACE));
 		
 	}
 
