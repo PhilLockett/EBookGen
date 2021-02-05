@@ -94,7 +94,7 @@ public class Model {
 	private ArrayList<ItemRef> spine = new ArrayList<>();
 
 	public void copyFile(String sourceFile, String targetDirectory) {
-		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
+//		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
 
 		File target = new File(targetDirectory + "/" + sourceFile);
 		if (target.exists())
@@ -140,7 +140,7 @@ public class Model {
 
 	public void genTitlePage(String target, String path, boolean full) {
 		final String file = path + "\\" + target;
-		System.out.println("Generating " + file);
+//		System.out.println("genTitlePage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -192,7 +192,7 @@ public class Model {
 
 	public void genChapterPage(String target, String path, String title) {
 		final String file = path + "\\" + target;
-		System.out.println("Generating " + file);
+//		System.out.println("genChapterPage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -235,7 +235,7 @@ public class Model {
 
 	public void genContentsPage(String target, String path) {
 		final String file = path + "\\" + target;
-		System.out.println("Generating " + file);
+//		System.out.println("genContentsPage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -277,7 +277,7 @@ public class Model {
 
 	public void genNavigationControl(String target, String path) {
 		final String file = path + "\\" + target;
-		System.out.println("Generating " + file);
+//		System.out.println("genNavigationControl " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -313,7 +313,7 @@ public class Model {
 
 	public void genContent(String target, String path) {
 		final String file = path + "\\" + target;
-		System.out.println("Generating " + file);
+//		System.out.println("genContent " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -354,15 +354,15 @@ public class Model {
 	}
 
 	public void generate() {
-		System.out.println("Book Title: " + title);
-		System.out.println("Book Identifier: " + identifier);
-		System.out.println("Identifier Type: " + identifierType);
-		System.out.println("Language: " + mapLang.get(language));
-		System.out.println("Author Name: " + getAuthorName());
-		System.out.println("Sort Name: " + getSortName());
-		System.out.println("Chapter Count: " + chapterCount);
-		System.out.println("Publisher: " + publisher);
-		System.out.println("Year: " + year);
+//		System.out.println("Book Title: " + title);
+//		System.out.println("Book Identifier: " + identifier);
+//		System.out.println("Identifier Type: " + identifierType);
+//		System.out.println("Language: " + mapLang.get(language));
+//		System.out.println("Author Name: " + getAuthorName());
+//		System.out.println("Sort Name: " + getSortName());
+//		System.out.println("Chapter Count: " + chapterCount);
+//		System.out.println("Publisher: " + publisher);
+//		System.out.println("Year: " + year);
 
 		contents.clear();
 		navMap.clear();
