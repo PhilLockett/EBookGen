@@ -83,8 +83,8 @@ public class Model {
 	private String title = "Oliver Twist";
 
 	private String identifier = "isbn-123-1-12-123456-1";
-	private String publisher = "";
-	private String year = "";
+	private String publisher = "Handmade Books";
+	private String year = "2021";
 
 	private int chapterCount = INITIAL_CHAPTER_COUNT;
 

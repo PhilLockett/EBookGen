@@ -25,8 +25,6 @@
  */
 package phillockett65.EBookGen;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -216,6 +214,9 @@ public class MainController {
 	    txtFamilyName.setText(model.getFamilyName());
 	    refreshNames();
 	    txtBookIdentifier.setText(model.getIdentifier());
+
+	    txtPublisher.setText(model.getPublisher());
+	    txtYear.setText(model.getYear());
 
 		colChapterNumber.setText("Id");
 		colChapterNumber.setCellValueFactory(new PropertyValueFactory<>("identifier"));
