@@ -67,6 +67,11 @@ public class Model {
 	
 	private boolean[] checkBoxes = new boolean[CKB_CHECK_BOX_COUNT];
 
+	public final static String MT_XHTML ="application/xhtml+xml";
+	public final static String MT_CSS ="text/css";
+	public final static String MT_JPG ="image/jpeg";
+	public final static String MT_NCX ="application/x-dtbncx+xml";
+	
 	public final static int ISBN = 0;
 	public final static int URL = 1;
 
@@ -76,14 +81,17 @@ public class Model {
 	private String language = "English";
 	private String identifier = "isbn-123-1-12-123456-1";
 	private String identifierType = "ISBN";
-    private String publisher;
-    private String year;
+    private String publisher = "";
+    private String year = "";
 
 	private int chapterCount = INITIAL_CHAPTER_COUNT;
 
 	private Map<String, String> mapLang = new TreeMap<>();
 	private Map<String, Integer> mapIdType = new TreeMap<>();
 	private ArrayList<Entry> contents = new ArrayList<>();
+	private ArrayList<NavPoint> navMap = new ArrayList<>();
+	private ArrayList<Item> manifest = new ArrayList<>();
+	private ArrayList<ItemRef> spine = new ArrayList<>();
 
 	public void copyFile(String sourceFile, String targetDirectory) {
 		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
@@ -148,24 +156,28 @@ public class Model {
             bw.write("<body class=\"mainbody\">\n");
             bw.write("  <div class=\"centeraligntext\">\n");
             bw.write("\n");
-            bw.write("	<h1>\n");
+            bw.write("	<h2>\n");
             bw.write("	" + title + "\n");
-            bw.write("	</h1>\n");
+            bw.write("	</h2>\n");
             if (full) {
                 bw.write("\n");
-                bw.write("	<p>\n");
+                bw.write("	<br/>\n");
+                bw.write("	<br/>\n");
+                bw.write("	<div class=\"centeraligntext\">\n");
+                bw.write("	<h3>\n");
                 bw.write("	by " + getAuthorName() + "\n");
-                bw.write("	</p>\n");
+                bw.write("	</h3>\n");
                 if (publisher != null && publisher.length() != 0) {
-                    bw.write("	<p>\n");
+                    bw.write("	<h3>\n");
                     bw.write("	" + publisher + "\n");
-                    bw.write("	</p>\n");
+                    bw.write("	</h3>\n");
                 }
                 if (year != null && year.length() != 0) {
-                    bw.write("	<p>\n");
+                    bw.write("	<h3>\n");
                     bw.write("	" + year + "\n");
-                    bw.write("	</p>\n");
+                    bw.write("	</h3>\n");
                 }
+                bw.write("	</div>\n");
             }
             bw.write("\n");
             bw.write("  </div>\n");
@@ -263,6 +275,84 @@ public class Model {
         }
 	}
 
+	public void genNavigationControl(String target, String path) {
+		final String file = path + "\\" + target;
+		System.out.println("Generating " + file);
+        try (FileWriter writer = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(writer)) {
+
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
+            bw.write("<ncx xmlns=\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\" xml:lang=\"en\">\n");
+            bw.write("	<head>\n");
+            bw.write("		<meta content=\"" + identifier + "\" name=\"dtb:uid\"/>\n");
+            bw.write("		<meta content=\"1\" name=\"dtb:depth\"/>\n");
+            bw.write("		<meta content=\"0\" name=\"dtb:totalPageCount\"/>\n");
+            bw.write("		<meta content=\"0\" name=\"dtb:maxPageNumber\"/>\n");
+            bw.write("	</head>\n");
+            bw.write("\n");
+            bw.write("	<docTitle>\n");
+            bw.write("		<text>" + title + "</text>\n");
+            bw.write("	</docTitle>\n");
+            bw.write("\n");
+            bw.write("	<docAuthor>\n");
+            bw.write("		<text>" + getAuthorName() + "</text>\n");
+            bw.write("	</docAuthor>\n");
+            bw.write("	<navMap>\n");
+
+            for (NavPoint navPoint : navMap)
+                bw.write(navPoint.toString());
+
+            bw.write("  </navMap>\n");
+            bw.write("</ncx>\n");
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
+	public void genContent(String target, String path) {
+		final String file = path + "\\" + target;
+		System.out.println("Generating " + file);
+        try (FileWriter writer = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(writer)) {
+
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
+            bw.write("<package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"BookId\" version=\"2.0\">\n");
+            bw.write("	<metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:opf=\"http://www.idpf.org/2007/opf\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n");
+            bw.write("		<dc:title>" + title + "</dc:title>\n");
+            bw.write("		<dc:language>" + language + "</dc:language>\n");
+            bw.write("		<dc:identifier id=\"BookId\" opf:scheme=\"" + identifierType + "\">" + identifier + "</dc:identifier>\n");
+            bw.write("		<dc:creator>" + getAuthorName() + "</dc:creator>\n");
+            bw.write("		<dc:publisher>" + publisher + "</dc:publisher>\n");
+            bw.write("		<dc:date>" + year + "</dc:date>\n");
+            bw.write("		<meta name=\"cover\" content=\"my-cover-image\"/>\n");
+            bw.write("	</metadata>\n");
+            bw.write("\n");
+            bw.write("	<manifest>\n");
+
+            for (Item item : manifest)
+                bw.write(item.toString());
+
+            bw.write("  </manifest>\n");
+            bw.write("	<spine toc=\"tableofcontents\">\n");
+
+            for (ItemRef itemRef : spine)
+                bw.write(itemRef.toString());
+
+            bw.write("  </spine>\n");
+            bw.write("	<guide>\n");
+            bw.write("		<reference href=\"bookcover.xhtml\" title=\"Cover Image\" type=\"cover\"/>\n");
+            bw.write("		<reference href=\"toc.xhtml\" title=\"Table Of Contents\" type=\"toc\"/>\n");
+            bw.write("	</guide>\n");
+            bw.write("</package>\n");
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
 	public void generate() {
 		System.out.println("Book Title: " + title);
 		System.out.println("Book Identifier: " + identifier);
@@ -271,8 +361,14 @@ public class Model {
 		System.out.println("Author Name: " + getAuthorName());
 		System.out.println("Sort Name: " + getSortName());
 		System.out.println("Chapter Count: " + chapterCount);
+		System.out.println("Publisher: " + publisher);
+		System.out.println("Year: " + year);
 
 		contents.clear();
+		navMap.clear();
+		manifest.clear();
+		spine.clear();
+		NavPoint.reset();
 
 		// Clean out existing file structure.
 		final String path = "Template";
@@ -294,57 +390,279 @@ public class Model {
 
 		// Copy content files.
 		copyFile("bookcover.xhtml", dir.getPath());
+		manifest.add(new Item("bookcover", "bookcover.xhtml", MT_XHTML));
+		spine.add(new ItemRef("bookcover", false));
 		copyFile("cover.jpg", dir.getPath());
 		copyFile("backcover.xhtml", dir.getPath());
 		copyFile("backcover.jpg", dir.getPath());
 		copyFile("stylesheet.css", dir.getPath());
 
 		if (checkBoxes[CKB_HALFTITLE]) {
-			genTitlePage("halftitle.xhtml", dir.getPath(), false);
+			final String file ="halftitle.xhtml";
+			final String id ="halftitle";
+			final String title ="Half Title";
+			genTitlePage(file, dir.getPath(), false);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 		if (checkBoxes[CKB_FRONTISPIECE]) {
-			copyFile("frontispiece.xhtml", dir.getPath());
+			final String file ="frontispiece.xhtml";
+			final String id ="frontispiece";
+			final String title ="Frontispiece";
+			copyFile(file, dir.getPath());
 			copyFile("frontispiece.jpg", dir.getPath());
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 		if (checkBoxes[CKB_TITLEPAGE]) {
-			genTitlePage("titlepage.xhtml", dir.getPath(), true);
-			contents.add(new Entry("Titie", "titlepage.xhtml"));
+			final String file ="title.xhtml";
+			final String id ="title";
+			final String title ="Title";
+			genTitlePage(file, dir.getPath(), true);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 		if (checkBoxes[CKB_COPYRIGHT]) {
-			copyFile("copyright.xhtml", dir.getPath());
-			contents.add(new Entry("Copyright", "copyright.xhtml"));
+			final String file ="copyright.xhtml";
+			final String id ="copyright";
+			final String title ="Copyright";
+			copyFile(file, dir.getPath());
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 		if (checkBoxes[CKB_DEDICATION]) {
-			copyFile("dedication.xhtml", dir.getPath());
-			contents.add(new Entry("Dedication", "dedication.xhtml"));
+			final String file ="dedication.xhtml";
+			final String id ="dedication";
+			final String title ="Dedication";
+			copyFile(file, dir.getPath());
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_EPIGRAPH]) {
+			final String file ="epigraph.xhtml";
+			final String id ="epigraph";
+			final String title ="Epigraph";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_TABLEOFCONTENTS]) {
+			final String file ="toc.xhtml";
+			final String id ="toc";
+			final String title ="Table of Contents";
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_FOREWORD]) {
+			final String file ="foreword.xhtml";
+			final String id ="foreword";
+			final String title ="Foreword";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_PREFACE]) {
+			final String file ="preface.xhtml";
+			final String id ="preface";
+			final String title ="Preface";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_ACKNOWLEDGMENTS]) {
+			final String file ="acknowledgments.xhtml";
+			final String id ="acknowledgments";
+			final String title ="Acknowledgments";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_INTRODUCTION]) {
+			final String file ="introduction.xhtml";
+			final String id ="introduction";
+			final String title ="Introduction";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 		if (checkBoxes[CKB_PROLOGUE]) {
-			genChapterPage("prologue.xhtml", dir.getPath(), "Prologue");
-			contents.add(new Entry("Prologue", "prologue.xhtml"));
+			final String file ="prologue.xhtml";
+			final String id ="prologue";
+			final String title ="Prologue";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 
 		for (int i = 1; i <= chapterCount; ++i) {
 			String file = String.format("chap%02d.xhtml", i);
+			String id = String.format("chap%02d", i);
 			String title = "Chapter " + i;
 			genChapterPage(file, dir.getPath(), title);
 			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 
 		if (checkBoxes[CKB_EPILOGUE]) {
-			genChapterPage("epilogue.xhtml", dir.getPath(), "Epilogue");
-			contents.add(new Entry("Epilogue", "epilogue.xhtml"));
+			final String file ="epilogue.xhtml";
+			final String id ="epilogue";
+			final String title ="Epilogue";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_OUTRO]) {
+			final String file ="outro.xhtml";
+			final String id ="outro";
+			final String title ="Outro";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_AFTERWORD]) {
+			final String file ="afterword.xhtml";
+			final String id ="afterword";
+			final String title ="Afterword";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_CONCLUSION]) {
+			final String file ="conclusion.xhtml";
+			final String id ="conclusion";
+			final String title ="Conclusion";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_POSTSCRIPT]) {
+			final String file ="postscript.xhtml";
+			final String id ="postscript";
+			final String title ="Postscript";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_APPENDIX]) {
+			final String file ="appendix.xhtml";
+			final String id ="appendix";
+			final String title ="Appendix";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_GLOSSARY]) {
+			final String file ="glossary.xhtml";
+			final String id ="glossary";
+			final String title ="Glossary";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_BIBLIOGRAPHY]) {
+			final String file ="bibliography.xhtml";
+			final String id ="bibliography";
+			final String title ="Bibliography";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_INDEX]) {
+			final String file ="index.xhtml";
+			final String id ="index";
+			final String title ="index";
+			genChapterPage(file, dir.getPath(), title);
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 		if (checkBoxes[CKB_BIOGRAPHY]) {
-			copyFile("biography.xhtml", dir.getPath());
+			final String file ="biography.xhtml";
+			final String id ="biography";
+			final String title ="Biography";
+			copyFile(file, dir.getPath());
 			copyFile("author.jpg", dir.getPath());
-			contents.add(new Entry("Biography", "biography.xhtml"));
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 		if (checkBoxes[CKB_COLOPHON]) {
-			copyFile("colophon.xhtml", dir.getPath());
-			contents.add(new Entry("Colophon", "colophon.xhtml"));
+			final String file ="colophon.xhtml";
+			final String id ="colophon";
+			final String title ="Colophon";
+			copyFile(file, dir.getPath());
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
+		}
+		if (checkBoxes[CKB_POSTFACE]) {
+			final String file ="postface.xhtml";
+			final String id ="postface";
+			final String title ="Postface";
+			copyFile(file, dir.getPath());
+			contents.add(new Entry(title, file));
+			navMap.add(new NavPoint(id, title, file));
+			manifest.add(new Item(id, file, MT_XHTML));
+			spine.add(new ItemRef(id, true));
 		}
 
+		if (checkBoxes[CKB_BIOGRAPHY])
+			manifest.add(new Item("my-author-image", "author.jpg", MT_JPG));
+		if (checkBoxes[CKB_FRONTISPIECE])
+			manifest.add(new Item("frontispiece-image", "frontispiece.jpg", MT_JPG));
+		manifest.add(new Item("my-cover-image", "cover.jpg", MT_JPG));
+		manifest.add(new Item("backcover-image", "backcover.jpg", MT_JPG));
+		spine.add(new ItemRef("backcover", true));
+		manifest.add(new Item("cascadingstylesheet", "stylesheet.css", MT_CSS));
+		manifest.add(new Item("tableofcontents", "toc.ncx", MT_NCX));
+
 		genContentsPage("toc.xhtml", dir.getPath());
+		genNavigationControl("toc.ncx", dir.getPath());
+		genContent("content.opf", dir.getPath());
 	}
 
 	public Model() {

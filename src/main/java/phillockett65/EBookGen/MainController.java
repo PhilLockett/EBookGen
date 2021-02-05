@@ -108,6 +108,8 @@ public class MainController {
         model.setLanguage(cbxLanguage.getValue().toString());
         model.setIdentifierType(cbxIdentifierType.getValue().toString());
         model.setIdentifier(txtBookIdentifier.getText());
+        model.setPublisher(txtPublisher.getText());
+        model.setYear(txtYear.getText());
         model.generate();
     }
 
