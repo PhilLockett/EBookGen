@@ -45,7 +45,6 @@ public class App extends Application {
 		scene.getStylesheets().add(App.class.getResource("application.css").toExternalForm());
 		stage.setTitle("EPUB Template Generator");
 		stage.setOnCloseRequest(e -> Platform.exit());
-		stage.resizableProperty().setValue(false);
 		stage.setScene(scene);
 		stage.show();
 	}

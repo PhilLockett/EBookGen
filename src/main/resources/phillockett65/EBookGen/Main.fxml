@@ -45,6 +45,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -311,6 +312,7 @@
                               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                            </padding>
                         </Button>
+                        <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#actionRemove" text="Remove Last Chapter">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -326,8 +328,8 @@
                   </HBox>
                   <TableView fx:id="tblChapters" editable="true">
                     <columns>
-                      <TableColumn fx:id="colChapterNumber" editable="false" prefWidth="74.0" resizable="false" sortable="false" text="Id" />
-                      <TableColumn fx:id="colChapterTitle" prefWidth="617.0" resizable="false" sortable="false" text="Chapter Title" />
+                      <TableColumn fx:id="colChapterNumber" editable="false" prefWidth="64.0" sortable="false" text="Id" />
+                      <TableColumn fx:id="colChapterTitle" prefWidth="608.0" sortable="false" text="Chapter Title" />
                     </columns>
                   </TableView>
                </children>
