@@ -674,10 +674,12 @@ public class Model {
 		genContent("content.opf", dir.getPath());
 	}
 
-	public Model() {
+	private void initIdTypeMap() {
 		mapIdType.put("ISBN", ISBN);
 		mapIdType.put("URL", URL);
+	}
 
+	private void initLanguageMap() {
 		mapLang.put("Abkhazian", "ab");
 		mapLang.put("Afar", "aa");
 		mapLang.put("Afrikaans", "af");
@@ -862,7 +864,9 @@ public class Model {
 		mapLang.put("Yoruba", "yo");
 		mapLang.put("Zhuang, Chuang", "za");
 		mapLang.put("Zulu", "zu");
+	}
 
+	private void initCheckBoxes() {
 		for (int i = 0; i < checkBoxes.length; ++i)
 			checkBoxes[i] = false;
 		checkBoxes[CKB_TITLEPAGE] = true;
@@ -873,11 +877,20 @@ public class Model {
 		checkBoxes[CKB_EPILOGUE] = true;
 		checkBoxes[CKB_BIOGRAPHY] = true;
 		checkBoxes[CKB_COLOPHON] = true;
+	}
 
+	private void initChaptersList() {
 		listChapters.clear();
 		for (int i = 1; i <= chapterCount; ++i) {
 			listChapters.add(new Chapter(i, "Chapter " + i));
 		}
+	}
+
+	public Model() {
+		initIdTypeMap();
+		initLanguageMap();
+		initCheckBoxes();
+		initChaptersList();
 	}
 
 	public Set<String> getIdTypeSet() {
