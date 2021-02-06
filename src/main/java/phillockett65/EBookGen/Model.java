@@ -370,35 +370,41 @@ public class Model {
 
 	public void genScripts(String target) {
 		String file = "build.bat";
-//		System.out.println("genScripts " + file);
-        try (FileWriter writer = new FileWriter(file);
-             BufferedWriter bw = new BufferedWriter(writer)) {
+		File root = new File(file);
+		if (!root.exists()) {
+//			System.out.println("genScripts " + file);
+			try (FileWriter writer = new FileWriter(file);
+					BufferedWriter bw = new BufferedWriter(writer)) {
 
-            bw.write("cd " + target + "\n");
-            bw.write("del " + target + ".epub\n");
-            bw.write("\"c:\\Program Files\\7-Zip\\7z.exe\" a Template.epub mimetype META-INF\\ OEBPS\\\n");
-            bw.write("cd ..\n");
+				bw.write("cd " + target + "\n");
+				bw.write("del " + target + ".epub\n");
+				bw.write("\"c:\\Program Files\\7-Zip\\7z.exe\" a Template.epub mimetype META-INF\\ OEBPS\\\n");
+				bw.write("cd ..\n");
 
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		file = "build.sh";
-//		System.out.println("genScripts " + file);
-        try (FileWriter writer = new FileWriter(file);
-             BufferedWriter bw = new BufferedWriter(writer)) {
+		root = new File(file);
+		if (!root.exists()) {
+//			System.out.println("genScripts " + file);
+			try (FileWriter writer = new FileWriter(file);
+					BufferedWriter bw = new BufferedWriter(writer)) {
 
-            bw.write("#! /bin/bash\n");
-            bw.write("\n");
-            bw.write("cd " + target + "\n");
-            bw.write("rm " + target + ".epub\n");
-            bw.write("'/cygdrive/c/Program Files/7-Zip/7z.exe' a Template.epub mimetype META-INF/ OEBPS/\n");
+				bw.write("#! /bin/bash\n");
+				bw.write("\n");
+				bw.write("cd " + target + "\n");
+				bw.write("rm " + target + ".epub\n");
+				bw.write("'/cygdrive/c/Program Files/7-Zip/7z.exe' a Template.epub mimetype META-INF/ OEBPS/\n");
 
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void generate() {
