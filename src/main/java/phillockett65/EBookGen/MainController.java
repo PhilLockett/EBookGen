@@ -34,6 +34,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 
 public class MainController {
@@ -221,6 +222,12 @@ public class MainController {
 		colChapterNumber.setCellValueFactory(new PropertyValueFactory<>("identifier"));
 		colChapterTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 		tblChapters.setItems(model.getListChapters());
+
+		// Make Chapter Title column editable. Note editable property has been set in the FXML.
+		colChapterTitle.setCellFactory(TextFieldTableCell.forTableColumn());
+		colChapterTitle.setOnEditCommit(e -> {
+			e.getTableView().getItems().get(e.getTablePosition().getRow()).setTitle(e.getNewValue());
+		});
 
 		// Set up the Check Boxes.
 		ckbHalfTitle.setSelected(model.isCheckBox(Model.CKB_HALFTITLE));
