@@ -69,6 +69,11 @@ public class Model {
 	
 	private boolean[] checkBoxes = new boolean[CKB_CHECK_BOX_COUNT];
 
+	public final static int ADD_CONTENTS = 1;
+	public final static int ADD_NAVMAP = 2;
+	public final static int ADD_MANIFEST = 4;
+	public final static int ADD_SPINE = 8;
+
 	public final static String MT_XHTML ="application/xhtml+xml";
 	public final static String MT_CSS ="text/css";
 	public final static String MT_JPG ="image/jpeg";
@@ -407,6 +412,25 @@ public class Model {
 		}
 	}
 
+	private void add(Mother mother, int targets) {
+		if (targets >= ADD_SPINE) {
+			targets -= ADD_SPINE;
+			spine.add(mother.getItemRef());
+		}
+		if (targets >= ADD_MANIFEST) {
+			targets -= ADD_MANIFEST;
+			manifest.add(mother.getManifestItem());
+		}
+		if (targets >= ADD_NAVMAP) {
+			targets -= ADD_NAVMAP;
+			navMap.add(mother.getNavPoint());
+		}
+		if (targets >= ADD_CONTENTS) {
+			targets -= ADD_CONTENTS;
+			contents.add(mother.getEntry());
+		}
+	}
+
 	public void generate() {
 //		System.out.println("Book Title: " + title);
 //		System.out.println("Book Identifier: " + identifier);
@@ -452,256 +476,135 @@ public class Model {
 		copyFile("stylesheet.css", dir.getPath());
 
 		if (checkBoxes[CKB_HALFTITLE]) {
-			final String file ="halftitle.xhtml";
-			final String id ="halftitle";
-			final String title ="Half Title";
-			genTitlePage(file, dir.getPath(), false);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("halftitle.xhtml", "halftitle", "Half Title", MT_XHTML);
+			genTitlePage(mother.getFile(), dir.getPath(), false);
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_FRONTISPIECE]) {
-			final String file ="frontispiece.xhtml";
-			final String id ="frontispiece";
-			final String title ="Frontispiece";
-			copyFile(file, dir.getPath());
+			Mother mother = new Mother("frontispiece.xhtml", "frontispiece", "Frontispiece", MT_XHTML);
+			copyFile(mother.getTitle(), dir.getPath());
 			copyFile("frontispiece.jpg", dir.getPath());
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_TITLEPAGE]) {
-			final String file ="title.xhtml";
-			final String id ="title";
-			final String title ="Title";
-			genTitlePage(file, dir.getPath(), true);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("title.xhtml", "title", "Title", MT_XHTML);
+			genTitlePage(mother.getFile(), dir.getPath(), true);
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_COPYRIGHT]) {
-			final String file ="copyright.xhtml";
-			final String id ="copyright";
-			final String title ="Copyright";
-			copyFile(file, dir.getPath());
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("copyright.xhtml", "copyright", "Copyright", MT_XHTML);
+			copyFile(mother.getFile(), dir.getPath());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_DEDICATION]) {
-			final String file ="dedication.xhtml";
-			final String id ="dedication";
-			final String title ="Dedication";
-			copyFile(file, dir.getPath());
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("dedication.xhtml", "dedication", "Dedication", MT_XHTML);
+			copyFile(mother.getFile(), dir.getPath());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_EPIGRAPH]) {
-			final String file ="epigraph.xhtml";
-			final String id ="epigraph";
-			final String title ="Epigraph";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("epigraph.xhtml", "epigraph", "Epigraph", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_TABLEOFCONTENTS]) {
-			final String file ="toc.xhtml";
-			final String id ="toc";
-			final String title ="Table of Contents";
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("toc.xhtml", "toc", "Table of Contents", MT_XHTML);
+			add(mother, ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_FOREWORD]) {
-			final String file ="foreword.xhtml";
-			final String id ="foreword";
-			final String title ="Foreword";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("foreword.xhtml", "foreword", "Foreword", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_PREFACE]) {
-			final String file ="preface.xhtml";
-			final String id ="preface";
-			final String title ="Preface";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("preface.xhtml", "preface", "Preface", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_ACKNOWLEDGMENTS]) {
-			final String file ="acknowledgments.xhtml";
-			final String id ="acknowledgments";
-			final String title ="Acknowledgments";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("acknowledgments.xhtml", "acknowledgments", "Acknowledgments", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_INTRODUCTION]) {
-			final String file ="introduction.xhtml";
-			final String id ="introduction";
-			final String title ="Introduction";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("introduction.xhtml", "introduction", "Introduction", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_PROLOGUE]) {
-			final String file ="prologue.xhtml";
-			final String id ="prologue";
-			final String title ="Prologue";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("prologue.xhtml", "prologue", "Prologue", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 
 		for (int i = 1; i <= chapterCount; ++i) {
 			String file = String.format("chap%02d.xhtml", i);
 			String id = String.format("chap%02d", i);
 			String title =  listChapters.get(i-1).getTitle();
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother(file, id, title, MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), title);
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 
 		if (checkBoxes[CKB_EPILOGUE]) {
-			final String file ="epilogue.xhtml";
-			final String id ="epilogue";
-			final String title ="Epilogue";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("epilogue.xhtml", "epilogue", "Epilogue", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_OUTRO]) {
-			final String file ="outro.xhtml";
-			final String id ="outro";
-			final String title ="Outro";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("outro.xhtml", "outro", "Outro", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_AFTERWORD]) {
-			final String file ="afterword.xhtml";
-			final String id ="afterword";
-			final String title ="Afterword";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("afterword.xhtml", "afterword", "Afterword", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_CONCLUSION]) {
-			final String file ="conclusion.xhtml";
-			final String id ="conclusion";
-			final String title ="Conclusion";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("conclusion.xhtml", "conclusion", "Conclusion", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_POSTSCRIPT]) {
-			final String file ="postscript.xhtml";
-			final String id ="postscript";
-			final String title ="Postscript";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("postscript.xhtml", "postscript", "Postscript", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_APPENDIX]) {
-			final String file ="appendix.xhtml";
-			final String id ="appendix";
-			final String title ="Appendix";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("appendix.xhtml", "appendix", "Appendix", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_GLOSSARY]) {
-			final String file ="glossary.xhtml";
-			final String id ="glossary";
-			final String title ="Glossary";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("glossary.xhtml", "glossary", "Glossary", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_BIBLIOGRAPHY]) {
-			final String file ="bibliography.xhtml";
-			final String id ="bibliography";
-			final String title ="Bibliography";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("bibliography.xhtml", "bibliography", "Bibliography", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_INDEX]) {
-			final String file ="index.xhtml";
-			final String id ="index";
-			final String title ="index";
-			genChapterPage(file, dir.getPath(), title);
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("index.xhtml", "index", "index", MT_XHTML);
+			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_BIOGRAPHY]) {
-			final String file ="biography.xhtml";
-			final String id ="biography";
-			final String title ="Biography";
-			copyFile(file, dir.getPath());
+			Mother mother = new Mother("biography.xhtml", "biography", "Biography", MT_XHTML);
+			copyFile(mother.getFile(), dir.getPath());
 			copyFile("author.jpg", dir.getPath());
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_COLOPHON]) {
-			final String file ="colophon.xhtml";
-			final String id ="colophon";
-			final String title ="Colophon";
-			copyFile(file, dir.getPath());
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("colophon.xhtml", "colophon", "Colophon", MT_XHTML);
+			copyFile(mother.getFile(), dir.getPath());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_POSTFACE]) {
-			final String file ="postface.xhtml";
-			final String id ="postface";
-			final String title ="Postface";
-			copyFile(file, dir.getPath());
-			contents.add(new Entry(title, file));
-			navMap.add(new NavPoint(id, title, file));
-			manifest.add(new Item(id, file, MT_XHTML));
-			spine.add(new ItemRef(id, true));
+			Mother mother = new Mother("postface.xhtml", "postface", "Postface", MT_XHTML);
+			copyFile(mother.getFile(), dir.getPath());
+			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 
 		if (checkBoxes[CKB_BIOGRAPHY])
