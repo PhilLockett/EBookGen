@@ -416,7 +416,7 @@ public class Model {
 		navMap.clear();
 		manifest.clear();
 		spine.clear();
-		NavPoint.reset();
+		NavPoint.resetPlayOrder();
 
 		// Clean out existing file structure.
 		final String path = "Template";
