@@ -20,7 +20,6 @@
     -fx-text-fill: #f8f8f8;
     -fx-font-weight: bold;
     -fx-background-color: #A16946;
-    -fx-background-radius: 12;
 }
 .text-area{
     -fx-text-fill: white;
@@ -31,11 +30,16 @@
 	-fx-border-insets: 1;
 }
 
-.choice-box, .button{
-    -fx-background-color: #AB4642;
+.button{
+    -fx-background-color: #DC9656;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
+}
+.choice-box{
+    -fx-background-color: #AB4642;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 .choice-box{
     -fx-background-color: #AB4642;
