@@ -370,7 +370,7 @@ public class Model {
 
 	public void genScripts(String target) {
 		String file = "build.bat";
-		System.out.println("genScripts " + file);
+//		System.out.println("genScripts " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -385,7 +385,7 @@ public class Model {
         }
 
 		file = "build.sh";
-		System.out.println("genScripts " + file);
+//		System.out.println("genScripts " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
 

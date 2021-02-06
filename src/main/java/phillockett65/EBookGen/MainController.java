@@ -169,21 +169,20 @@ public class MainController {
 
         model.setCheckBox(cbid, cb.isSelected());
     }
-    private void refreshNames() {
+    private void updateCombinedNameLabels() {
 		datAuthorName.setText(model.getAuthorName());
 		datSortName.setText(model.getSortName());
     }
 
-    void changedFamilyName() {
+    private void changedFamilyName() {
     	model.setFamilyName(txtFamilyName.getText());
-    	refreshNames();
+    	updateCombinedNameLabels();
     }
 
-    void changedGivenName() {
+    private void changedGivenName() {
     	model.setGivenNames(txtGivenNames.getText());
-    	refreshNames();
+    	updateCombinedNameLabels();
     }
-
 
 
     @FXML
@@ -209,18 +208,17 @@ public class MainController {
 		cbxIdentifierType.setItems(model.getListIdentifierTypes());
 		cbxIdentifierType.getSelectionModel().select(model.getInitialIdTypeMapIndex());
 
+		// Initialize the fields.
 	    txtBookTitle.setText(model.getTitle());
 	    txtGivenNames.setText(model.getGivenNames());
 	    txtFamilyName.setText(model.getFamilyName());
-	    refreshNames();
 	    txtBookIdentifier.setText(model.getIdentifier());
-
 	    txtPublisher.setText(model.getPublisher());
 	    txtYear.setText(model.getYear());
+	    updateCombinedNameLabels();
 
-		colChapterNumber.setText("Id");
+	    // Set up the Columns and Table for the Chapters.
 		colChapterNumber.setCellValueFactory(new PropertyValueFactory<>("identifier"));
-		colChapterTitle.setText("Chapter Heading");
 		colChapterTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 
 		tblChapters.setItems(model.getListChapters());
