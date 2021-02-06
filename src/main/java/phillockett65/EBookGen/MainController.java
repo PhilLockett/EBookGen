@@ -209,18 +209,17 @@ public class MainController {
 		cbxIdentifierType.getSelectionModel().select(model.getInitialIdTypeMapIndex());
 
 		// Initialize the fields.
-	    txtBookTitle.setText(model.getTitle());
-	    txtGivenNames.setText(model.getGivenNames());
-	    txtFamilyName.setText(model.getFamilyName());
-	    txtBookIdentifier.setText(model.getIdentifier());
-	    txtPublisher.setText(model.getPublisher());
-	    txtYear.setText(model.getYear());
-	    updateCombinedNameLabels();
+		txtBookTitle.setText(model.getTitle());
+		txtGivenNames.setText(model.getGivenNames());
+		txtFamilyName.setText(model.getFamilyName());
+		txtBookIdentifier.setText(model.getIdentifier());
+		txtPublisher.setText(model.getPublisher());
+		txtYear.setText(model.getYear());
+		updateCombinedNameLabels();
 
-	    // Set up the Columns and Table for the Chapters.
+		// Set up the Columns and Table for the Chapters.
 		colChapterNumber.setCellValueFactory(new PropertyValueFactory<>("identifier"));
 		colChapterTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-
 		tblChapters.setItems(model.getListChapters());
 
 		// Set up the Check Boxes.
