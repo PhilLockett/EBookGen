@@ -113,22 +113,6 @@ public class Model {
 		return listChapters;
 	}
 
-	public void copyFile(String sourceFile, String targetDirectory) {
-//		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
-
-		File target = new File(targetDirectory + "/" + sourceFile);
-		if (target.exists())
-			return;
-		
-		String sourcePath = App.class.getResource("copyfiles/" + sourceFile).getFile();
-		File source = new File(sourcePath);
-		try {
-			Files.copy(source.toPath(), target.toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void deleteFilesAndDirs(File target) {
 		if (target.isDirectory()) {
 			if (target.list().length == 0) {
@@ -146,7 +130,6 @@ public class Model {
 		} else {
 			target.delete();
 		}
-		
 	}
 
 	public void deleteDirectory(String path) {
@@ -156,6 +139,22 @@ public class Model {
 		}
 
 		deleteFilesAndDirs(rootDir);
+	}
+
+	public void copyFile(String sourceFile, String targetDirectory) {
+//		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
+
+		File target = new File(targetDirectory + "/" + sourceFile);
+		if (target.exists())
+			return;
+
+		String sourcePath = App.class.getResource("copyfiles/" + sourceFile).getFile();
+		File source = new File(sourcePath);
+		try {
+			Files.copy(source.toPath(), target.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void genTitlePage(String target, String path, boolean full) {
