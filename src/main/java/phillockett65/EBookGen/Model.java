@@ -453,11 +453,20 @@ public class Model {
 
 		// Build the directory structure
 		File rootDir = new File(path);
-		rootDir.mkdir();
+		if (!rootDir.mkdir()) {
+			System.err.println("Failed to make directory: " + rootDir.getPath());
+			return;
+		}
 		File metaDir = new File(path + "/META-INF");
-		metaDir.mkdir();
+		if (!metaDir.mkdir()) {
+			System.err.println("Failed to make directory: " + metaDir.getPath());
+			return;
+		}
 		File dir = new File(path + "/OEBPS");
-		dir.mkdir();
+		if (!dir.mkdir()) {
+			System.err.println("Failed to make directory: " + dir.getPath());
+			return;
+		}
 
 		// Copy mime type file.
 		copyFile("mimetype", rootDir.getPath());
