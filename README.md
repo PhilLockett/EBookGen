@@ -1,0 +1,50 @@
+# EBookGen
+A simple application to generate a customized epub template.
+
+## Overview
+This project has been set up as a Maven project that uses JavaFX, FXML and 
+CSS to render the GUI. Maven can be run from the command line as shown below.
+Maven resolves dependencies and builds the application independently of an IDE.
+
+This application generates an epub template file structure. This template is 
+closely based on the template created by 
+[Eric Muss-Barnes](http://www.EricMuss-Barnes.com), which he describes in 
+[this video](https://www.youtube.com/watch?v=EiUMb7bgYeQ&t=2s).
+
+This application flattens the structure and moves all modifiable files into the
+Template/OEBPS directory. The application automatically generates the files: 
+"content.opf", "toc.ncx" and "toc.xhtml" based on user input and should not 
+need modifying.
+
+The application also generates "build.bat" and "build.sh" which can be used to
+create an epub file (Template/Template.epub). However these files require a zip
+client that can be run from the command line and the files should be updated to
+run that zip client. Note: by default the generated files run the 7zip client 
+from the default install directory.
+
+## Dependencies
+PTDesigner is dependent on the following:
+
+  * Java 15.0.1
+  * Apache Maven 3.6.3
+
+The code has been structured as a standard Maven project which requires Maven 
+and a JDK to be installed. A quick web search will help, but if not 
+[Apache](https://maven.apache.org/install.html) should guide you through the
+install. Also [OpenJFX](https://openjfx.io/openjfx-docs/) can help set up your 
+favourite IDE.
+
+## Cloning and Running
+The following commands clone and execute the code:
+
+    git clone https://github.com/PhilLockett/EBookGen.git
+	cd EBookGen/
+	mvn clean javafx:run
+
+## Points of interest
+This code has the following points of interest:
+
+  * EBookGen is a Maven project that uses JavaFX, FXML and CSS.
+  * The window is created with SceneBuilder using FXML and CSS.
+  * The window was developed using SceneBuilder.
+  
