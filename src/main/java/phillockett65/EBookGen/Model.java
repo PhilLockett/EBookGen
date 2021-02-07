@@ -962,13 +962,14 @@ public class Model {
 		return chapterCount;
 	}
 
-	public boolean isCheckBox(CheckBox cb) {
-		final int id = Integer.parseInt(cb.getId());
-        return checkBoxes[id];
+	public boolean isCheckBox(int id) {
+//		System.out.println("isCheckBox(" + id + ") -> " + checkBoxes[id]);
+		return checkBoxes[id];
 	}
 
 	public void setCheckBox(CheckBox cb) {
 		final int id = Integer.parseInt(cb.getId());
+//		System.out.println("setCheckBox(" + id + ") -> " + cb.isSelected());
 		checkBoxes[id] = cb.isSelected();
 	}
 

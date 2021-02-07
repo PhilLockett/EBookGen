@@ -118,6 +118,7 @@ public class MainController {
         CheckBox cb = (CheckBox) event.getSource();
         model.setCheckBox(cb);
     }
+
     private void updateCombinedNameLabels() {
 		datAuthorName.setText(model.getAuthorName());
 		datSortName.setText(model.getSortName());
@@ -143,6 +144,12 @@ public class MainController {
     void keyChangedGivenName(KeyEvent event) {
     	changedGivenName();
     }
+
+    private void initCheckBox(CheckBox cb, int id) {
+		cb.setId(Integer.toString(id));
+    	cb.setSelected(model.isCheckBox(id));
+    }
+
     /**
 	 * Called by the FXML mechanism to initialize the controller. Creates a 
 	 * callback link for all the tab controllers.
@@ -177,58 +184,32 @@ public class MainController {
 			e.getTableView().getItems().get(e.getTablePosition().getRow()).setTitle(e.getNewValue());
 		});
 
-		// Set up the Check Box ids - MUST BE FIRST THING DONE WITH CHECBOX.
-		ckbHalfTitle.setId(Integer.toString(Model.CKB_HALFTITLE));
-		ckbFrontispiece.setId(Integer.toString(Model.CKB_FRONTISPIECE));
-		ckbTitlePage.setId(Integer.toString(Model.CKB_TITLEPAGE));
-		ckbCopyright.setId(Integer.toString(Model.CKB_COPYRIGHT));
-		ckbDedication.setId(Integer.toString(Model.CKB_DEDICATION));
-		ckbEpigraph.setId(Integer.toString(Model.CKB_EPIGRAPH));
-		ckbTableOfContents.setId(Integer.toString(Model.CKB_TABLEOFCONTENTS));
-		ckbForeword.setId(Integer.toString(Model.CKB_FOREWORD));
-		ckbPreface.setId(Integer.toString(Model.CKB_PREFACE));
-		ckbAcknowledgments.setId(Integer.toString(Model.CKB_ACKNOWLEDGMENTS));
-		ckbIntroduction.setId(Integer.toString(Model.CKB_INTRODUCTION));
-		ckbPrologue.setId(Integer.toString(Model.CKB_PROLOGUE));
-		ckbEpilogue.setId(Integer.toString(Model.CKB_EPILOGUE));
-		ckbOutro.setId(Integer.toString(Model.CKB_OUTRO));
-		ckbAfterword.setId(Integer.toString(Model.CKB_AFTERWORD));
-		ckbConclusion.setId(Integer.toString(Model.CKB_CONCLUSION));
-		ckbPostscript.setId(Integer.toString(Model.CKB_POSTSCRIPT));
-		ckbAppendix.setId(Integer.toString(Model.CKB_APPENDIX));
-		ckbGlossary.setId(Integer.toString(Model.CKB_GLOSSARY));
-		ckbBibliography.setId(Integer.toString(Model.CKB_BIBLIOGRAPHY));
-		ckbIndex.setId(Integer.toString(Model.CKB_INDEX));
-		ckbBiography.setId(Integer.toString(Model.CKB_BIOGRAPHY));
-		ckbColophon.setId(Integer.toString(Model.CKB_COLOPHON));
-		ckbPostface.setId(Integer.toString(Model.CKB_POSTFACE));
+		// Set up the Check Boxes - MUST BE FIRST THING DONE WITH CHECBOX.
+		initCheckBox(ckbHalfTitle, Model.CKB_HALFTITLE);
+		initCheckBox(ckbFrontispiece, Model.CKB_FRONTISPIECE);
+		initCheckBox(ckbTitlePage, Model.CKB_TITLEPAGE);
+		initCheckBox(ckbCopyright, Model.CKB_COPYRIGHT);
+		initCheckBox(ckbDedication, Model.CKB_DEDICATION);
+		initCheckBox(ckbEpigraph, Model.CKB_EPIGRAPH);
+		initCheckBox(ckbTableOfContents, Model.CKB_TABLEOFCONTENTS);
+		initCheckBox(ckbForeword, Model.CKB_FOREWORD);
+		initCheckBox(ckbPreface, Model.CKB_PREFACE);
+		initCheckBox(ckbAcknowledgments, Model.CKB_ACKNOWLEDGMENTS);
+		initCheckBox(ckbIntroduction, Model.CKB_INTRODUCTION);
+		initCheckBox(ckbPrologue, Model.CKB_PROLOGUE);
+		initCheckBox(ckbEpilogue, Model.CKB_EPILOGUE);
+		initCheckBox(ckbOutro, Model.CKB_OUTRO);
+		initCheckBox(ckbAfterword, Model.CKB_AFTERWORD);
+		initCheckBox(ckbConclusion, Model.CKB_CONCLUSION);
+		initCheckBox(ckbPostscript, Model.CKB_POSTSCRIPT);
+		initCheckBox(ckbAppendix, Model.CKB_APPENDIX);
+		initCheckBox(ckbGlossary, Model.CKB_GLOSSARY);
+		initCheckBox(ckbBibliography, Model.CKB_BIBLIOGRAPHY);
+		initCheckBox(ckbIndex, Model.CKB_INDEX);
+		initCheckBox(ckbBiography, Model.CKB_BIOGRAPHY);
+		initCheckBox(ckbColophon, Model.CKB_COLOPHON);
+		initCheckBox(ckbPostface, Model.CKB_POSTFACE);
 
-		// Initialize the Check Box state with data from the model.
-		ckbHalfTitle.setSelected(model.isCheckBox(ckbHalfTitle));
-		ckbFrontispiece.setSelected(model.isCheckBox(ckbFrontispiece));
-		ckbTitlePage.setSelected(model.isCheckBox(ckbTitlePage));
-		ckbCopyright.setSelected(model.isCheckBox(ckbCopyright));
-		ckbDedication.setSelected(model.isCheckBox(ckbDedication));
-		ckbEpigraph.setSelected(model.isCheckBox(ckbEpigraph));
-		ckbTableOfContents.setSelected(model.isCheckBox(ckbTableOfContents));
-		ckbForeword.setSelected(model.isCheckBox(ckbForeword));
-		ckbPreface.setSelected(model.isCheckBox(ckbPreface));
-		ckbAcknowledgments.setSelected(model.isCheckBox(ckbAcknowledgments));
-		ckbIntroduction.setSelected(model.isCheckBox(ckbIntroduction));
-		ckbPrologue.setSelected(model.isCheckBox(ckbPrologue));
-		ckbEpilogue.setSelected(model.isCheckBox(ckbEpilogue));
-		ckbOutro.setSelected(model.isCheckBox(ckbOutro));
-		ckbAfterword.setSelected(model.isCheckBox(ckbAfterword));
-		ckbConclusion.setSelected(model.isCheckBox(ckbConclusion));
-		ckbPostscript.setSelected(model.isCheckBox(ckbPostscript));
-		ckbAppendix.setSelected(model.isCheckBox(ckbAppendix));
-		ckbGlossary.setSelected(model.isCheckBox(ckbGlossary));
-		ckbBibliography.setSelected(model.isCheckBox(ckbBibliography));
-		ckbIndex.setSelected(model.isCheckBox(ckbIndex));
-		ckbBiography.setSelected(model.isCheckBox(ckbBiography));
-		ckbColophon.setSelected(model.isCheckBox(ckbColophon));
-		ckbPostface.setSelected(model.isCheckBox(ckbPostface));
-		
 	}
 
 	/**
