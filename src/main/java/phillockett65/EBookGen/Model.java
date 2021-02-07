@@ -210,8 +210,8 @@ public class Model {
         }
 	}
 
-	public void genChapterPage(String target, String path, String title) {
-		final String file = path + "\\" + target;
+	public void genChapterPage(Mother mother, String path) {
+		final String file = path + "\\" + mother.getFile();
 //		System.out.println("genChapterPage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
@@ -219,7 +219,7 @@ public class Model {
             bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
             bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
             bw.write("<head>\n");
-            bw.write("<title>" + title + "</title>\n");
+            bw.write("<title>" + mother.getTitle() + "</title>\n");
             bw.write("\n");
             bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
             bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
@@ -229,7 +229,7 @@ public class Model {
             bw.write("  <div class=\"paragraphtext\">\n");
             bw.write("\n");
             bw.write("	<h1>\n");
-            bw.write("	" + title + "\n");
+            bw.write("	" + mother.getTitle() + "\n");
             bw.write("	</h1>\n");
             bw.write("	<br/>\n");
             bw.write("	<br/>\n");
@@ -503,7 +503,7 @@ public class Model {
 		}
 		if (checkBoxes[CKB_EPIGRAPH]) {
 			Mother mother = new Mother("epigraph.xhtml", "epigraph", "Epigraph", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_TABLEOFCONTENTS]) {
@@ -512,27 +512,27 @@ public class Model {
 		}
 		if (checkBoxes[CKB_FOREWORD]) {
 			Mother mother = new Mother("foreword.xhtml", "foreword", "Foreword", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_PREFACE]) {
 			Mother mother = new Mother("preface.xhtml", "preface", "Preface", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_ACKNOWLEDGMENTS]) {
 			Mother mother = new Mother("acknowledgments.xhtml", "acknowledgments", "Acknowledgments", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_INTRODUCTION]) {
 			Mother mother = new Mother("introduction.xhtml", "introduction", "Introduction", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_PROLOGUE]) {
 			Mother mother = new Mother("prologue.xhtml", "prologue", "Prologue", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 
@@ -541,53 +541,53 @@ public class Model {
 			String id = String.format("chap%02d", i);
 			String title =  listChapters.get(i-1).getTitle();
 			Mother mother = new Mother(file, id, title, MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), title);
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 
 		if (checkBoxes[CKB_EPILOGUE]) {
 			Mother mother = new Mother("epilogue.xhtml", "epilogue", "Epilogue", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_OUTRO]) {
 			Mother mother = new Mother("outro.xhtml", "outro", "Outro", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_AFTERWORD]) {
 			Mother mother = new Mother("afterword.xhtml", "afterword", "Afterword", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_CONCLUSION]) {
 			Mother mother = new Mother("conclusion.xhtml", "conclusion", "Conclusion", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_POSTSCRIPT]) {
 			Mother mother = new Mother("postscript.xhtml", "postscript", "Postscript", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_APPENDIX]) {
 			Mother mother = new Mother("appendix.xhtml", "appendix", "Appendix", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_GLOSSARY]) {
 			Mother mother = new Mother("glossary.xhtml", "glossary", "Glossary", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_BIBLIOGRAPHY]) {
 			Mother mother = new Mother("bibliography.xhtml", "bibliography", "Bibliography", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_INDEX]) {
 			Mother mother = new Mother("index.xhtml", "index", "index", MT_XHTML);
-			genChapterPage(mother.getFile(), dir.getPath(), mother.getTitle());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_BIOGRAPHY]) {
