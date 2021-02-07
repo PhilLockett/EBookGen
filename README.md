@@ -18,10 +18,10 @@ need modifying.
 
 The application also generates the command files "build.bat" and "build.sh" 
 which can be used to create an epub file (Template/Template.epub). However 
-these command files require a zip client that can be run from the command line 
-be installed. The command file(s) should be updated to run the installed zip 
-client. Note: by default the generated files run the 7Zip client from it's 
-default install directory.
+these command files require a zip client, that can be run from the command 
+line, be installed. The command file(s) should be updated to run the 
+installed zip client. Note: by default the generated files run the 
+[7-Zip](https://www.7-zip.org/) client from it's default install directory.
 
 ## Dependencies
 EBookGen is dependent on the following:
