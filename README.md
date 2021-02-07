@@ -6,8 +6,8 @@ This project has been set up as a Maven project that uses JavaFX, FXML and
 CSS to render the GUI. Maven can be run from the command line as shown below.
 Maven resolves dependencies and builds the application independently of an IDE.
 
-This application generates an epub template file structure. This template is 
-closely based on the template created by 
+This application generates a customized epub template file structure. This 
+template is closely based on the template created by 
 [Eric Muss-Barnes](http://www.EricMuss-Barnes.com), which he describes in 
 [this video](https://www.youtube.com/watch?v=EiUMb7bgYeQ&t=2s).
 
@@ -16,14 +16,15 @@ Template/OEBPS directory. The application automatically generates the files:
 "content.opf", "toc.ncx" and "toc.xhtml" based on user input and should not 
 need modifying.
 
-The application also generates "build.bat" and "build.sh" which can be used to
-create an epub file (Template/Template.epub). However these files require a zip
-client that can be run from the command line and the files should be updated to
-run that zip client. Note: by default the generated files run the 7zip client 
-from the default install directory.
+The application also generates the command files "build.bat" and "build.sh" 
+which can be used to create an epub file (Template/Template.epub). However 
+these command files require a zip client that can be run from the command line 
+be installed. The command file(s) should be updated to run the installed zip 
+client. Note: by default the generated files run the 7Zip client from it's 
+default install directory.
 
 ## Dependencies
-PTDesigner is dependent on the following:
+EBookGen is dependent on the following:
 
   * Java 15.0.1
   * Apache Maven 3.6.3
