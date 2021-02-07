@@ -25,6 +25,9 @@
 package phillockett65.EBookGen;
 
 public class Mother {
+	private static int count = 0;
+
+	private int playOrder;
 	private String file;
 	private String id;
 	private String title;
@@ -51,40 +54,71 @@ public class Mother {
 		return title;
 	}
 
+
 	/**
-	 * Get an object that represents a Contents page entry.
+	 * Get a string that represents a Contents page entry.
 	 * 
-	 * @return an object that represents a Contents page entry.
+	 * @return a string that represents a Contents page entry.
 	 */
-	public Entry getEntry() {
-		return new Entry(title, file);
+	public String getEntry() {
+		String node = "	<br/>\n";
+		node += "	<a href=\"" + file + "\">" + title + "</a>\n";
+
+		return node;
 	}
 
 	/**
-	 * Get an object that represents a manifest item.
+	 * Get a string that represents a manifest item.
 	 * 
-	 * @return an object that represents a manifest item.
+	 * @return a string that represents a manifest item.
 	 */
-	public Item getManifestItem() {
-		return new Item(id, file, type);
+	public String getItem() {
+		String node = "		<item href=\"" + file + "\"";
+		node += " id=\"" + id + "\"";
+		node += " media-type=\"" + type + "\"";
+		node += "/>\n";
+
+		return node;
 	}
 
 	/**
-	 * Get an object that represents a spine item reference.
+	 * Get a string that represents a spine item reference.
 	 * 
-	 * @return an object that represents a spine item reference.
+	 * @return a string that represents a spine item reference.
 	 */
-	public ItemRef getItemRef() {
-		return new ItemRef(id, linear);
+	public String getItemRef() {
+		String node = "		<itemref idref=\"" + id + "\"";
+		if (!linear)
+			node += " linear=\"no\"";
+		node += "/>\n";
+
+		return node;
 	}
 
 	/**
-	 * Get an object that represents a navMap navPoint.
+	 * Get a string that represents a navMap navPoint.
 	 * 
-	 * @return an object that represents a navMap navPoint.
+	 * @return a string that represents a navMap navPoint.
 	 */
-	public NavPoint getNavPoint() {
-		return new NavPoint(id, title, file);
+	public String getNavPoint() {
+		this.playOrder = ++count;
+
+		String node = "\n";
+		node += "		<navPoint class=\"chapter\" id=\"" + id + "\" playOrder=\"" + playOrder + "\">\n";
+		node += "			<navLabel>\n";
+		node += "				<text>" + title + "</text>\n";
+		node += "			</navLabel>\n";
+		node += "			<content src=\"" + file + "\"/>\n";
+		node += "		</navPoint>\n";
+
+		return node;
+	}
+
+	/**
+	 * Resets the static play order count, used for each generate request.
+	 */
+	public static void resetPlayOrder() {
+		count = 0;
 	}
 
 }

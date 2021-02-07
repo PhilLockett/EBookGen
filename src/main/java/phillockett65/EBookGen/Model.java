@@ -92,10 +92,10 @@ public class Model {
 
 	private int chapterCount = INITIAL_CHAPTER_COUNT;
 
-	private ArrayList<Entry> contents = new ArrayList<>();
-	private ArrayList<NavPoint> navMap = new ArrayList<>();
-	private ArrayList<Item> manifest = new ArrayList<>();
-	private ArrayList<ItemRef> spine = new ArrayList<>();
+	private ArrayList<String> contents = new ArrayList<>();
+	private ArrayList<String> navMap = new ArrayList<>();
+	private ArrayList<String> manifest = new ArrayList<>();
+	private ArrayList<String> spine = new ArrayList<>();
 
 	private Map<String, String> mapLang = new TreeMap<>();
 	private ObservableList<String> listIdentifierTypes = FXCollections.observableArrayList("UNDEFINED");
@@ -282,8 +282,8 @@ public class Model {
             bw.write("	</div>\n");
             bw.write("	<br/>\n");
 
-            for (Entry entry : contents)
-                bw.write(entry.toString());
+            for (String entry : contents)
+                bw.write(entry);
 
             bw.write("  </div>\n");
             bw.write("</body>\n");
@@ -319,8 +319,8 @@ public class Model {
             bw.write("	</docAuthor>\n");
             bw.write("	<navMap>\n");
 
-            for (NavPoint navPoint : navMap)
-                bw.write(navPoint.toString());
+            for (String navPoint : navMap)
+                bw.write(navPoint);
 
             bw.write("  </navMap>\n");
             bw.write("</ncx>\n");
@@ -351,14 +351,14 @@ public class Model {
             bw.write("\n");
             bw.write("	<manifest>\n");
 
-            for (Item item : manifest)
-                bw.write(item.toString());
+            for (String item : manifest)
+                bw.write(item);
 
             bw.write("  </manifest>\n");
             bw.write("	<spine toc=\"tableofcontents\">\n");
 
-            for (ItemRef itemRef : spine)
-                bw.write(itemRef.toString());
+            for (String itemRef : spine)
+                bw.write(itemRef);
 
             bw.write("  </spine>\n");
             bw.write("	<guide>\n");
@@ -419,7 +419,7 @@ public class Model {
 		}
 		if (targets >= ADD_MANIFEST) {
 			targets -= ADD_MANIFEST;
-			manifest.add(mother.getManifestItem());
+			manifest.add(mother.getItem());
 		}
 		if (targets >= ADD_NAVMAP) {
 			targets -= ADD_NAVMAP;
@@ -446,7 +446,7 @@ public class Model {
 		navMap.clear();
 		manifest.clear();
 		spine.clear();
-		NavPoint.resetPlayOrder();
+		Mother.resetPlayOrder();
 
 		// Clean out existing file structure.
 		final String path = "Template";
@@ -467,9 +467,10 @@ public class Model {
 		copyFile("container.xml", metaDir.getPath());
 
 		// Copy content files.
-		copyFile("bookcover.xhtml", dir.getPath());
-		manifest.add(new Item("bookcover", "bookcover.xhtml", MT_XHTML));
-		spine.add(new ItemRef("bookcover", false));
+		Mother father = new Mother("bookcover.xhtml", "bookcover", "Bookcover", MT_XHTML);
+		father.setLinear(false);
+		copyFile(father.getFile(), dir.getPath());
+		add(father, ADD_MANIFEST + ADD_SPINE);
 		copyFile("cover.jpg", dir.getPath());
 		copyFile("backcover.xhtml", dir.getPath());
 		copyFile("backcover.jpg", dir.getPath());
@@ -607,16 +608,29 @@ public class Model {
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 
-		if (checkBoxes[CKB_BIOGRAPHY])
-			manifest.add(new Item("my-author-image", "author.jpg", MT_JPG));
-		if (checkBoxes[CKB_FRONTISPIECE])
-			manifest.add(new Item("frontispiece-image", "frontispiece.jpg", MT_JPG));
-		manifest.add(new Item("backcover", "backcover.xhtml", MT_XHTML));
-		manifest.add(new Item("my-cover-image", "cover.jpg", MT_JPG));
-		manifest.add(new Item("backcover-image", "backcover.jpg", MT_JPG));
-		spine.add(new ItemRef("backcover", true));
-		manifest.add(new Item("cascadingstylesheet", "stylesheet.css", MT_CSS));
-		manifest.add(new Item("tableofcontents", "toc.ncx", MT_NCX));
+		if (checkBoxes[CKB_BIOGRAPHY]) {
+			Mother mother = new Mother("author.jpg", "my-author-image", "Postface Image", MT_JPG);
+			add(mother, ADD_MANIFEST);
+		}
+		if (checkBoxes[CKB_FRONTISPIECE]) {
+			Mother mother = new Mother("frontispiece.jpg", "frontispiece-image", "Frontispiece Image", MT_JPG);
+			add(mother, ADD_MANIFEST);
+		}
+
+		father = new Mother("backcover.xhtml", "backcover", "Backcover", MT_XHTML);
+		add(father, ADD_MANIFEST + ADD_SPINE);
+
+		father = new Mother("cover.jpg", "my-cover-image", "Cover Image", MT_JPG);
+		add(father, ADD_MANIFEST);
+
+		father = new Mother("backcover.jpg", "backcover-image", "Back Cover Image", MT_JPG);
+		add(father, ADD_MANIFEST);
+
+		father = new Mother("stylesheet.css", "cascadingstylesheet", "Stylesheet", MT_CSS);
+		add(father, ADD_MANIFEST);
+
+		father = new Mother("toc.ncx", "tableofcontents", "Stylesheet", MT_NCX);
+		add(father, ADD_MANIFEST);
 
 		genContentsPage("toc.xhtml", dir.getPath());
 		genNavigationControl("toc.ncx", dir.getPath());
