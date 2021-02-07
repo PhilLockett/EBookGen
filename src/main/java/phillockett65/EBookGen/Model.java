@@ -482,7 +482,7 @@ public class Model {
 		}
 		if (checkBoxes[CKB_FRONTISPIECE]) {
 			Mother mother = new Mother("frontispiece.xhtml", "frontispiece", "Frontispiece", MT_XHTML);
-			copyFile(mother.getTitle(), dir.getPath());
+			copyFile(mother.getFile(), dir.getPath());
 			copyFile("frontispiece.jpg", dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
@@ -603,7 +603,7 @@ public class Model {
 		}
 		if (checkBoxes[CKB_POSTFACE]) {
 			Mother mother = new Mother("postface.xhtml", "postface", "Postface", MT_XHTML);
-			copyFile(mother.getFile(), dir.getPath());
+			genChapterPage(mother, dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 
