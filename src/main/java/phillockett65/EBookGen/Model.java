@@ -109,11 +109,108 @@ public class Model {
 
 	private ObservableList<Chapter> listChapters = FXCollections.observableArrayList();
 
+
+	/**
+	 * Getters and Setters.
+	 */
+
 	public ObservableList<Chapter> getListChapters() {
 		return listChapters;
 	}
+	public int addChapter() {
+		chapterCount++;
+		listChapters.add(new Chapter(chapterCount, "Chapter " + chapterCount));
 
-	public void deleteFilesAndDirs(File target) {
+		return chapterCount;
+	}
+	public int removeChapter() {
+		chapterCount--;
+		listChapters.remove(chapterCount);
+
+		return chapterCount;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+	public int getInitialIdTypeMapIndex() {
+		return initialIdTypeMapIndex;
+	}
+	public ObservableList<String> getListIdentifierTypes() {
+		return listIdentifierTypes;
+	}
+	public void setIdentifierType(String identifierType) {
+		this.identifierType = identifierType;
+	}
+
+	public int getInitialLanguageMapIndex() {
+		return initialLanguageMapIndex;
+	}
+	public ObservableList<String> getListLanguages() {
+		return listLanguages;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getFamilyName() {
+		return familyName;
+	}
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
+	}
+	public String getGivenNames() {
+		return givenNames;
+	}
+	public void setGivenNames(String givenNames) {
+		this.givenNames = givenNames;
+	}
+	public String getAuthorName() {
+		return givenNames + " " + familyName;
+	}
+	public String getSortName() {
+		return familyName + ", " + givenNames;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public boolean isCheckBox(int id) {
+//		System.out.println("isCheckBox(" + id + ") -> " + checkBoxes[id]);
+		return checkBoxes[id];
+	}
+	public void setCheckBox(int id, boolean state) {
+//		System.out.println("setCheckBox(" + id + ", " + state + ")");
+		checkBoxes[id] = state;
+	}
+
+
+	/**
+	 * Copy and Generate E-Book directories and files.
+	 */
+
+	private void deleteFilesAndDirs(File target) {
 		if (target.isDirectory()) {
 			if (target.list().length == 0) {
 				target.delete();
@@ -132,7 +229,7 @@ public class Model {
 		}
 	}
 
-	public void deleteDirectory(String path) {
+	private void deleteDirectory(String path) {
 		File rootDir = new File(path);
 		if (!rootDir.exists()) {
 			return;
@@ -141,7 +238,7 @@ public class Model {
 		deleteFilesAndDirs(rootDir);
 	}
 
-	public void copyFile(String sourceFile, String targetDirectory) {
+	private void copyFile(String sourceFile, String targetDirectory) {
 //		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
 
 		File target = new File(targetDirectory + "/" + sourceFile);
@@ -157,7 +254,7 @@ public class Model {
 		}
 	}
 
-	public void genTitlePage(String target, String path, boolean full) {
+	private void genTitlePage(String target, String path, boolean full) {
 		final String file = path + "\\" + target;
 //		System.out.println("genTitlePage " + file);
         try (FileWriter writer = new FileWriter(file);
@@ -209,7 +306,7 @@ public class Model {
         }
 	}
 
-	public void genChapterPage(Mother mother, String path) {
+	private void genChapterPage(Mother mother, String path) {
 		final String file = path + "\\" + mother.getFile();
 //		System.out.println("genChapterPage " + file);
         try (FileWriter writer = new FileWriter(file);
@@ -252,7 +349,7 @@ public class Model {
         }
 	}
 
-	public void genContentsPage(String target, String path) {
+	private void genContentsPage(String target, String path) {
 		final String file = path + "\\" + target;
 //		System.out.println("genContentsPage " + file);
         try (FileWriter writer = new FileWriter(file);
@@ -294,7 +391,7 @@ public class Model {
         }
 	}
 
-	public void genNavigationControl(String target, String path) {
+	private void genNavigationControl(String target, String path) {
 		final String file = path + "\\" + target;
 //		System.out.println("genNavigationControl " + file);
         try (FileWriter writer = new FileWriter(file);
@@ -330,7 +427,7 @@ public class Model {
         }
 	}
 
-	public void genContent(String target, String path) {
+	private void genContent(String target, String path) {
 		final String file = path + "\\" + target;
 //		System.out.println("genContent " + file);
         try (FileWriter writer = new FileWriter(file);
@@ -372,7 +469,7 @@ public class Model {
         }
 	}
 
-	public void genScripts(String target) {
+	private void genScripts(String target) {
 		String file = "build.bat";
 		File root = new File(file);
 		if (!root.exists()) {
@@ -646,6 +743,11 @@ public class Model {
 		genScripts(path);
 	}
 
+
+	/**
+	 * Initialization.
+	 */
+
 	private void initIdTypeMap() {
 		mapIdType.put("ISBN", ISBN);
 		mapIdType.put("URL", URL);
@@ -876,99 +978,14 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Constructor - runs all initialization code.
+	 */
 	public Model() {
 		initIdTypeMap();
 		initLanguageMap();
 		initCheckBoxes();
 		initChaptersList();
-	}
-
-	public int getInitialIdTypeMapIndex() {
-		return initialIdTypeMapIndex;
-	}
-
-	public ObservableList<String> getListIdentifierTypes() {
-		return listIdentifierTypes;
-	}
-
-	public int getInitialLanguageMapIndex() {
-		return initialLanguageMapIndex;
-	}
-
-	public ObservableList<String> getListLanguages() {
-		return listLanguages;
-	}
-
-	public String getFamilyName() {
-		return familyName;
-	}
-	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
-	}
-	public String getGivenNames() {
-		return givenNames;
-	}
-	public void setGivenNames(String givenNames) {
-		this.givenNames = givenNames;
-	}
-	public String getAuthorName() {
-		return givenNames + " " + familyName;
-	}
-	public String getSortName() {
-		return familyName + ", " + givenNames;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	public String getIdentifier() {
-		return identifier;
-	}
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
-	}
-	public void setIdentifierType(String identifierType) {
-		this.identifierType = identifierType;
-	}
-	public String getPublisher() {
-		return publisher;
-	}
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-	public String getYear() {
-		return year;
-	}
-	public void setYear(String year) {
-		this.year = year;
-	}
-
-	public int addChapter() {
-		chapterCount++;
-		listChapters.add(new Chapter(chapterCount, "Chapter " + chapterCount));
-
-		return chapterCount;
-	}
-	public int removeChapter() {
-		chapterCount--;
-		listChapters.remove(chapterCount);
-
-		return chapterCount;
-	}
-
-	public boolean isCheckBox(int id) {
-//		System.out.println("isCheckBox(" + id + ") -> " + checkBoxes[id]);
-		return checkBoxes[id];
-	}
-
-	public void setCheckBox(int id, boolean state) {
-//		System.out.println("setCheckBox(" + id + ", " + state + ")");
-		checkBoxes[id] = state;
 	}
 
 }
