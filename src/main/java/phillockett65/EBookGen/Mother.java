@@ -34,6 +34,14 @@ public class Mother {
 	private String type;
 	private boolean linear = true;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param file associated with a collection object.
+	 * @param id used to identify the collection object.
+	 * @param title of the collection object.
+	 * @param type of the collection object.
+	 */
 	public Mother(String file, String id, String title, String type) {
 		super();
 		this.file = file;
@@ -42,14 +50,28 @@ public class Mother {
 		this.type = type;
 	}
 
+	/**
+	 * Set the linear value.
+	 * 
+	 * @param linear.
+	 */
 	public void setLinear(boolean linear) {
 		this.linear = linear;
 	}
 
+	/**
+	 * Get the File.
+	 * 
+	 * @return the File.
+	 */
 	public String getFile() {
 		return file;
 	}
 
+	/**
+	 * Get the Title.
+	 * @return the Title.
+	 */
 	public String getTitle() {
 		return title;
 	}
