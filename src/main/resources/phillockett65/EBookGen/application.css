@@ -12,6 +12,10 @@
     -fx-text-fill: #f8f8f8;
     -fx-font-weight: bold;
 }
+.table-row-cell:selected {
+    -fx-background-color: #DC9656;
+    -fx-text-fill: #FFFFFF;
+}
 .check-box{
     -fx-text-fill: #f8f8f8;
     -fx-font-weight: bold;
@@ -32,13 +36,13 @@
 
 .button{
     -fx-background-color: #DC9656;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
 }
 .choice-box{
     -fx-background-color: #AB4642;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
 }
 .choice-box{
