@@ -119,6 +119,7 @@ public class MainController {
     void actionGenerate(ActionEvent event) {
 //        System.out.println("actionGenerate: " + event.toString());
         // Get Choice Box selections.
+        model.setTitle(txtBookTitle.getText());
         model.setLanguage(cbxLanguage.getValue().toString());
         model.setIdentifierType(cbxIdentifierType.getValue().toString());
         model.setIdentifier(txtBookIdentifier.getText());
