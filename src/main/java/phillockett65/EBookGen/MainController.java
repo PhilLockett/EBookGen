@@ -88,21 +88,21 @@ public class MainController {
 	private Model model;
 
 
+	/**
+	 * Refresh the "Data" field labels (Author Name and Sort Name).
+	 */
 	private void updateCombinedNameLabels() {
 		datAuthorName.setText(model.getAuthorName());
 		datSortName.setText(model.getSortName());
 	}
 
-	private void changedFamilyName() {
-		model.setFamilyName(txtFamilyName.getText());
-		updateCombinedNameLabels();
-	}
-
-	private void changedGivenName() {
-		model.setGivenNames(txtGivenNames.getText());
-		updateCombinedNameLabels();
-	}
-
+	/**
+	 * Initializes a CheckBox by embedding an id and initializing the state 
+	 * using data from the model.
+	 * 
+	 * @param cb CheckBox to initialize.
+	 * @param id index (identifier) that model associates with the CheckBox.
+	 */
 	private void initCheckBox(CheckBox cb, int id) {
 		cb.setId(Integer.toString(id));
 		cb.setSelected(model.isCheckBox(id));
@@ -144,12 +144,14 @@ public class MainController {
 
     @FXML
     void keyChangedFamilyName(KeyEvent event) {
-    	changedFamilyName();
+		model.setFamilyName(txtFamilyName.getText());
+		updateCombinedNameLabels();
     }
 
     @FXML
     void keyChangedGivenName(KeyEvent event) {
-    	changedGivenName();
+		model.setGivenNames(txtGivenNames.getText());
+		updateCombinedNameLabels();
     }
 
     @FXML
