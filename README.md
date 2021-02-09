@@ -45,7 +45,8 @@ The following commands clone and execute the code:
 ## Points of interest
 This code has the following points of interest:
 
-  * EBookGen is a Maven project that uses JavaFX, FXML and CSS.
-  * The window is created with SceneBuilder using FXML and CSS.
-  * The window was developed using SceneBuilder.
+  * EBookGen is a Maven project that uses JavaFX.
+  * A GUI created with SceneBuilder utilizing FXML and CSS.
+  * ChoiceBox providing ISO language name to 2 letter ISO 639-1 code.
+  * TableView with in table editable cells.
   
