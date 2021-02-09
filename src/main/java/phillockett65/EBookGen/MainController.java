@@ -88,6 +88,27 @@ public class MainController {
 	private Model model;
 
 
+	private void updateCombinedNameLabels() {
+		datAuthorName.setText(model.getAuthorName());
+		datSortName.setText(model.getSortName());
+	}
+
+	private void changedFamilyName() {
+		model.setFamilyName(txtFamilyName.getText());
+		updateCombinedNameLabels();
+	}
+
+	private void changedGivenName() {
+		model.setGivenNames(txtGivenNames.getText());
+		updateCombinedNameLabels();
+	}
+
+	private void initCheckBox(CheckBox cb, int id) {
+		cb.setId(Integer.toString(id));
+		cb.setSelected(model.isCheckBox(id));
+	}
+
+
     @FXML
     void actionAppend(ActionEvent event) {
 //      System.out.println("actionAppend()");
@@ -121,22 +142,6 @@ public class MainController {
         model.setCheckBox(id, cb.isSelected());
     }
 
-    private void updateCombinedNameLabels() {
-		datAuthorName.setText(model.getAuthorName());
-		datSortName.setText(model.getSortName());
-    }
-
-    private void changedFamilyName() {
-    	model.setFamilyName(txtFamilyName.getText());
-    	updateCombinedNameLabels();
-    }
-
-    private void changedGivenName() {
-    	model.setGivenNames(txtGivenNames.getText());
-    	updateCombinedNameLabels();
-    }
-
-
     @FXML
     void keyChangedFamilyName(KeyEvent event) {
     	changedFamilyName();
@@ -151,11 +156,6 @@ public class MainController {
     void onEditChapterTitle(CellEditEvent<Chapter, String> event) {
     	CellEditEvent<Chapter, String> e = event;
     	e.getTableView().getItems().get(e.getTablePosition().getRow()).setTitle(e.getNewValue());
-    }
-
-    private void initCheckBox(CheckBox cb, int id) {
-		cb.setId(Integer.toString(id));
-    	cb.setSelected(model.isCheckBox(id));
     }
 
     /**
