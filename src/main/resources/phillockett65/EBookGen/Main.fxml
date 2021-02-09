@@ -329,7 +329,7 @@
                   <TableView fx:id="tblChapters" editable="true">
                     <columns>
                       <TableColumn fx:id="colChapterNumber" editable="false" prefWidth="64.0" sortable="false" text="Id" />
-                      <TableColumn fx:id="colChapterTitle" prefWidth="608.0" sortable="false" text="Chapter Title" />
+                      <TableColumn fx:id="colChapterTitle" onEditCommit="#onEditChapterTitle" prefWidth="608.0" sortable="false" text="Chapter Title" />
                     </columns>
                   </TableView>
                </children>

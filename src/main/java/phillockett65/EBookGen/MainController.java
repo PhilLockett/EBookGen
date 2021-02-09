@@ -31,6 +31,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -146,6 +147,12 @@ public class MainController {
     	changedGivenName();
     }
 
+    @FXML
+    void onEditChapterTitle(CellEditEvent<Chapter, String> event) {
+    	CellEditEvent<Chapter, String> e = event;
+    	e.getTableView().getItems().get(e.getTablePosition().getRow()).setTitle(e.getNewValue());
+    }
+
     private void initCheckBox(CheckBox cb, int id) {
 		cb.setId(Integer.toString(id));
     	cb.setSelected(model.isCheckBox(id));
@@ -181,9 +188,6 @@ public class MainController {
 
 		// Make Chapter Title column editable. Note editable property has been set in the FXML.
 		colChapterTitle.setCellFactory(TextFieldTableCell.forTableColumn());
-		colChapterTitle.setOnEditCommit(e -> {
-			e.getTableView().getItems().get(e.getTablePosition().getRow()).setTitle(e.getNewValue());
-		});
 
 		// Set up the Check Boxes - MUST BE FIRST THING DONE WITH CHECBOX.
 		initCheckBox(ckbHalfTitle, Model.CKB_HALFTITLE);
