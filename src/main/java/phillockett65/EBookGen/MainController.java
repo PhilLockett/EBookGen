@@ -116,7 +116,8 @@ public class MainController {
 //        System.out.println("actionGenerate: " + event.toString());
 
         CheckBox cb = (CheckBox) event.getSource();
-        model.setCheckBox(cb);
+		final int id = Integer.parseInt(cb.getId());
+        model.setCheckBox(id, cb.isSelected());
     }
 
     private void updateCombinedNameLabels() {

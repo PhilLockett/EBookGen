@@ -35,7 +35,6 @@ import java.util.TreeMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CheckBox;
 
 
 public class Model {
@@ -967,10 +966,9 @@ public class Model {
 		return checkBoxes[id];
 	}
 
-	public void setCheckBox(CheckBox cb) {
-		final int id = Integer.parseInt(cb.getId());
-//		System.out.println("setCheckBox(" + id + ") -> " + cb.isSelected());
-		checkBoxes[id] = cb.isSelected();
+	public void setCheckBox(int id, boolean state) {
+//		System.out.println("setCheckBox(" + id + ", " + state + ")");
+		checkBoxes[id] = state;
 	}
 
 }
