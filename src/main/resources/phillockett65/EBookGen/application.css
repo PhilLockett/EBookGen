@@ -1,7 +1,7 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
 .root{
-    -fx-background-color: #383838;
+    -fx-background-color: #181818;
 }
 .label{
     -fx-text-fill: #f8f8f8;
@@ -19,6 +19,18 @@
 .check-box{
     -fx-text-fill: #f8f8f8;
     -fx-font-weight: bold;
+}
+.check-box .box {
+    -fx-background-color: #DC9656;
+    -fx-border-color:grey;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #FFFFFF;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #A16946;
 }
 .text-field{
     -fx-text-fill: #f8f8f8;
