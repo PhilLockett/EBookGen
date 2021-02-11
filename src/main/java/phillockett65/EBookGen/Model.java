@@ -210,34 +210,6 @@ public class Model {
 	 * Copy and Generate E-Book directories and files.
 	 */
 
-	private void deleteFilesAndDirs(File target) {
-		if (target.isDirectory()) {
-			if (target.list().length == 0) {
-				target.delete();
-			} else {
-				File[] files = target.listFiles();
-				for (File fileDelete : files) {
-					deleteFilesAndDirs(fileDelete);
-				}
-
-				if (target.list().length == 0) {
-					target.delete();
-				}
-			}
-		} else {
-			target.delete();
-		}
-	}
-
-	private void deleteDirectory(String path) {
-		File rootDir = new File(path);
-		if (!rootDir.exists()) {
-			return;
-		}
-
-		deleteFilesAndDirs(rootDir);
-	}
-
 	private void copyFile(String sourceFile, String targetDirectory) {
 //		System.out.println("copyFile(" + sourceFile + " to " + targetDirectory + "\\" + sourceFile + ")");
 
@@ -469,8 +441,8 @@ public class Model {
         }
 	}
 
-	private void genScripts(String target) {
-		String file = "build.bat";
+	private void genScripts(String target, int version) {
+		String file = String.format("build%02d.bat", version);
 		File root = new File(file);
 		if (!root.exists()) {
 //			System.out.println("genScripts " + file);
@@ -479,7 +451,7 @@ public class Model {
 
 				bw.write("cd " + target + "\n");
 				bw.write("del " + target + ".epub\n");
-				bw.write("\"c:\\Program Files\\7-Zip\\7z.exe\" a Template.epub mimetype META-INF\\ OEBPS\\\n");
+				bw.write("\"c:\\Program Files\\7-Zip\\7z.exe\" a " + target + ".epub mimetype META-INF\\ OEBPS\\\n");
 				bw.write("cd ..\n");
 
 				bw.close();
@@ -488,7 +460,7 @@ public class Model {
 			}
 		}
 
-		file = "build.sh";
+		file = String.format("build%02d.sh", version);
 		root = new File(file);
 		if (!root.exists()) {
 //			System.out.println("genScripts " + file);
@@ -499,7 +471,7 @@ public class Model {
 				bw.write("\n");
 				bw.write("cd " + target + "\n");
 				bw.write("rm " + target + ".epub\n");
-				bw.write("'/cygdrive/c/Program Files/7-Zip/7z.exe' a Template.epub mimetype META-INF/ OEBPS/\n");
+				bw.write("'/cygdrive/c/Program Files/7-Zip/7z.exe' a " + target + ".epub mimetype META-INF/ OEBPS/\n");
 
 				bw.close();
 			} catch (IOException e) {
@@ -544,9 +516,20 @@ public class Model {
 		spine.clear();
 		Mother.resetPlayOrder();
 
-		// Clean out existing file structure.
-		final String path = "Template";
-		deleteDirectory(path);
+		// Find next available root path.
+		String path = "";
+		int version = 1;
+		for (; version < 100; ++version) {
+			path = String.format("Template%02d", version);
+			File rootDir = new File(path);
+			if (!rootDir.exists())
+				break;
+		}
+
+		if (version == 100) {
+			System.err.println("Failed to make directory.");
+			return;
+		}
 
 		// Build the directory structure
 		File rootDir = new File(path);
@@ -740,7 +723,7 @@ public class Model {
 		genContentsPage("toc.xhtml", dir.getPath());
 		genNavigationControl("toc.ncx", dir.getPath());
 		genContent("content.opf", dir.getPath());
-		genScripts(path);
+		genScripts(path, version);
 	}
 
 
