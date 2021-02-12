@@ -226,24 +226,37 @@ public class Model {
 		}
 	}
 
+	private void genHeader(BufferedWriter bw, String title, String bodyClass, String divClass) throws IOException {
+//		System.out.println("genHeader() " + title);
+        bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
+        bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
+        bw.write("<head>\n");
+        bw.write("<title>" + title + "</title>\n");
+        bw.write("\n");
+        bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
+        bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+        bw.write("</head>\n");
+        bw.write("\n");
+        bw.write("<body class=\"" + bodyClass + "\">\n");
+        bw.write("  <div class=\"" + divClass + "\">\n");
+        bw.write("\n");
+	}
+
+	private void genFooter(BufferedWriter bw) throws IOException {
+//		System.out.println("genFooter()");
+        bw.write("\n");
+        bw.write("  </div>\n");
+        bw.write("</body>\n");
+        bw.write("</html>\n");
+	}
+
 	private void genTitlePage(String target, String path, boolean full) {
 		final String file = path + "\\" + target;
 //		System.out.println("genTitlePage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
+            genHeader(bw, title, "mainbody", "centeraligntext");
 
-            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
-            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
-            bw.write("<head>\n");
-            bw.write("<title>" + title + "</title>\n");
-            bw.write("\n");
-            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
-            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
-            bw.write("</head>\n");
-            bw.write("\n");
-            bw.write("<body class=\"mainbody\">\n");
-            bw.write("  <div class=\"centeraligntext\">\n");
-            bw.write("\n");
             bw.write("	<h2>\n");
             bw.write("	" + title + "\n");
             bw.write("	</h2>\n");
@@ -267,11 +280,8 @@ public class Model {
                 }
                 bw.write("	</div>\n");
             }
-            bw.write("\n");
-            bw.write("  </div>\n");
-            bw.write("</body>\n");
-            bw.write("</html>\n");
 
+            genFooter(bw);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -283,19 +293,8 @@ public class Model {
 //		System.out.println("genTitlePage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
+            genHeader(bw, "Copyright", "mainbody", "leftaligntext");
 
-            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
-            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
-            bw.write("<head>\n");
-            bw.write("<title>Copyright</title>\n");
-            bw.write("\n");
-            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
-            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
-            bw.write("</head>\n");
-            bw.write("\n");
-            bw.write("<body class=\"mainbody\">\n");
-            bw.write("  <div class=\"leftaligntext\">\n");
-            bw.write("\n");
             bw.write("	<h1>\n");
             bw.write("	Copyright &#169; " + year + " " + getAuthorName() + ". All Rights Reserved.\n");
             bw.write("	</h1>\n");
@@ -309,10 +308,8 @@ public class Model {
             bw.write("	<br/>\n");
             bw.write("	<br/>\n");
             bw.write("	<p>First International eBook Printing: " + year + "</p>\n");
-            bw.write("  </div>\n");
-            bw.write("</body>\n");
-            bw.write("</html>\n");
 
+            genFooter(bw);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -324,19 +321,8 @@ public class Model {
 //		System.out.println("genChapterPage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
+            genHeader(bw, mother.getTitle(), "mainbody", "paragraphtext");
 
-            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
-            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
-            bw.write("<head>\n");
-            bw.write("<title>" + mother.getTitle() + "</title>\n");
-            bw.write("\n");
-            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
-            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
-            bw.write("</head>\n");
-            bw.write("\n");
-            bw.write("<body class=\"mainbody\">\n");
-            bw.write("  <div class=\"paragraphtext\">\n");
-            bw.write("\n");
             bw.write("	<h1>\n");
             bw.write("	" + mother.getTitle() + "\n");
             bw.write("	</h1>\n");
@@ -351,11 +337,8 @@ public class Model {
             bw.write("<p>Bold can be done with <b>regular bold tags</b> while italics <i>can be done with italics tags</i>.. Ut erat turpis, vehicula et, rutrum quis, tincidunt eu, urna. Vestibulum blandit, neque et laoreet sagittis, leo nunc ultricies metus, at faucibus purus ante sed enim. Duis rutrum. Quisque eleifend erat vel lacus. Maecenas elementum nulla sed erat. Donec vulputate dapibus ligula. Nunc neque pede, malesuada sit amet, ultricies vel, sollicitudin ut, neque. Praesent ultrices nunc at elit. Proin lorem sem, blandit in, pulvinar interdum, cursus a, arcu.</p> \n");
             bw.write("\n");
             bw.write("<ul><li>&#169; (copyright)</li><li>&#167; (section)</li><li>&#8212; (em dash)</li><li>&#8211; (en dash)</li><li>&#8226; (bullet)</li><li>&#8230; (ellipsis)</li></ul>. <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris et libero condimentum mi eleifend tempus. Ut faucibus, arcu eget lacinia placerat, odio neque interdum ante, nec adipiscing justo velit non turpis. Nullam nec est quis massa dictum ornare. Sed est massa, tempor sit amet, tristique nec, fringilla nec, mi. Curabitur sollicitudin dictum tellus. Nunc urna. </p><p>If these free tutorial files helped you, show your appreciation by buying a novel or book written by author <a href=\"http://www.EricMuss-Barnes.com\">Eric Muss-Barnes</a> at <a href=\"http://www.DubhSithInk.com\">http://www.DubhSithInk.com</a> and check out his blog at <a href=\"http://www.InkShard.com\">http://www.InkShard.com</a>.</p>\n");
-            bw.write("\n");
-            bw.write("  </div>\n");
-            bw.write("</body>\n");
-            bw.write("</html>\n");
 
+            genFooter(bw);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -367,19 +350,8 @@ public class Model {
 //		System.out.println("genContentsPage " + file);
         try (FileWriter writer = new FileWriter(file);
              BufferedWriter bw = new BufferedWriter(writer)) {
+            genHeader(bw, "Table of Contents", "mainbody", "paragraphtext");
 
-            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
-            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
-            bw.write("<head>\n");
-            bw.write("<title>Table of Contents</title>\n");
-            bw.write("\n");
-            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
-            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
-            bw.write("</head>\n");
-            bw.write("\n");
-            bw.write("<body class=\"mainbody\">\n");
-            bw.write("  <div class=\"paragraphtext\">\n");
-            bw.write("\n");
             bw.write("	<h1>\n");
             bw.write("	Table of Contents\n");
             bw.write("	</h1>\n");
@@ -394,10 +366,7 @@ public class Model {
             for (String entry : contents)
                 bw.write(entry);
 
-            bw.write("  </div>\n");
-            bw.write("</body>\n");
-            bw.write("</html>\n");
-
+            genFooter(bw);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
