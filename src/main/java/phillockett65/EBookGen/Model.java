@@ -278,6 +278,47 @@ public class Model {
         }
 	}
 
+	private void genCopyrightPage(String target, String path) {
+		final String file = path + "\\" + target;
+//		System.out.println("genTitlePage " + file);
+        try (FileWriter writer = new FileWriter(file);
+             BufferedWriter bw = new BufferedWriter(writer)) {
+
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n");
+            bw.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
+            bw.write("<head>\n");
+            bw.write("<title>Copyright</title>\n");
+            bw.write("\n");
+            bw.write("<meta content=\"http://www.w3.org/1999/xhtml; charset=utf-8\" http-equiv=\"Content-Type\"/>\n");
+            bw.write("<link href=\"stylesheet.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+            bw.write("</head>\n");
+            bw.write("\n");
+            bw.write("<body class=\"mainbody\">\n");
+            bw.write("  <div class=\"leftaligntext\">\n");
+            bw.write("\n");
+            bw.write("	<h1>\n");
+            bw.write("	Copyright &#169; " + year + " " + getAuthorName() + ". All Rights Reserved.\n");
+            bw.write("	</h1>\n");
+            bw.write("\n");
+            bw.write("	<br/>\n");
+            bw.write("	<br/>\n");
+            bw.write("	Note all the information below is optional. Only the H1 tag above is required.\n");
+            bw.write("	<br/>\n");
+            bw.write("	<br/>\n");
+            bw.write("	All rights reserved under the Digital Millennium Copyright Act, the Universal Copyright Convention and the Berne Convention For The Protection Of Literary And Artistic Works. The author of this book, John Doe, secures all rights to this book, including the right to reproduce this book in whole or in part, in any form whatsoever, and extends such privileges to absolutely no other parties, individuals or companies. Not including eBook exemptions of the Digital Millennium Copyright Act, no part of this book may be reproduced or transmitted in any form, in whole or in part, by any electronic, mechanical, or other means including, but not limited to, all existing and yet to be invented information duplicating, storage or retrieval systems, without specific permission in writing from the author, except by a reviewer who may quote brief passages.\n");
+            bw.write("	<br/>\n");
+            bw.write("	<br/>\n");
+            bw.write("	<p>First International eBook Printing: " + year + "</p>\n");
+            bw.write("  </div>\n");
+            bw.write("</body>\n");
+            bw.write("</html>\n");
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
 	private void genChapterPage(Mother mother, String path) {
 		final String file = path + "\\" + mother.getFile();
 //		System.out.println("genChapterPage " + file);
@@ -582,7 +623,7 @@ public class Model {
 		}
 		if (checkBoxes[CKB_COPYRIGHT]) {
 			Mother mother = new Mother("copyright.xhtml", "copyright", "Copyright", MT_XHTML);
-			copyFile(mother.getFile(), dir.getPath());
+			genCopyrightPage(mother.getFile(), dir.getPath());
 			add(mother, ADD_CONTENTS + ADD_NAVMAP + ADD_MANIFEST + ADD_SPINE);
 		}
 		if (checkBoxes[CKB_DEDICATION]) {
