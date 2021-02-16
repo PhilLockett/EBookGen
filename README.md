@@ -47,8 +47,17 @@ To get the latest code, run the following command from the EBookGen directory:
 
     git pull --rebase origin
 
-And run it with the mvn command. If the update fails, just delete the entire 
-EBookGen directory and execute the "Cloning and Running" steps above.
+Then use the mvn command above to run it. If the update fails, delete the entire 
+EBookGen directory and execute the "Cloning and Running" steps again.
+
+## Recommended work flow
+
+  1. Generate a template using your initial best guess for the required sections.
+  2. Update the xhtml files with your content.
+  3. Check content by viewing OEBPS/toc.xhtml in a browser.
+  4. If you realize the original template was wrong, generate a new template.
+  5. Copy the content from the old template to the new.
+  6. Go back to step 2.
 
 ## Points of interest
 This code has the following points of interest:
