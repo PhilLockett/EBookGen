@@ -42,6 +42,14 @@ The following commands clone and execute the code:
 	cd EBookGen/
 	mvn clean javafx:run
 
+### Updating
+To get the latest code, run the following command from the EBookGen directory:
+
+    git pull --rebase origin
+
+And run it with the mvn command. If the update fails, just delete the entire 
+EBookGen directory and execute the "Cloning and Running" steps above.
+
 ## Points of interest
 This code has the following points of interest:
 
