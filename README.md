@@ -8,16 +8,17 @@ Maven resolves dependencies and builds the application independently of an IDE.
 
 This application generates a customized epub template file structure. This 
 template is closely based on the template created by 
-[Eric Muss-Barnes](http://www.EricMuss-Barnes.com), which he describes in 
-[this video](https://www.youtube.com/watch?v=EiUMb7bgYeQ&t=2s).
+[Eric Muss-Barnes](http://www.EricMuss-Barnes.com), and he describes how to 
+use it in this [video](https://www.youtube.com/watch?v=EiUMb7bgYeQ&t=2s).
 
-This application flattens the structure and moves all modifiable files into the
-Template/OEBPS directory. The application automatically generates the files: 
-"content.opf", "toc.ncx" and "toc.xhtml" based on user input and should not 
-need modifying.
+This application flattens his structure and moves all modifiable files into the
+TemplateXX/OEBPS directory (where XX is the next available 2 decimal digit 
+value). The application automatically generates the files: "content.opf", 
+"toc.ncx" and "toc.xhtml" based on user input and these files should not be 
+modified.
 
-The application also generates the command files "build.bat" and "build.sh" 
-which can be used to create an epub file (Template/Template.epub). However 
+The application also generates the command files "buildXX.bat" and "buildXX.sh" 
+which can be used to create an epub file (TemplateXX/TemplateXX.epub). However 
 these command files require a zip client, that can be run from the command 
 line, be installed. The command file(s) should be updated to run the 
 installed zip client. Note: by default the generated files run the 
