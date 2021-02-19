@@ -12,16 +12,17 @@ template is closely based on the template created by
 use it in this [video](https://www.youtube.com/watch?v=EiUMb7bgYeQ&t=2s).
 
 This application flattens his structure and moves all modifiable files into the
-TemplateXX/OEBPS directory (where XX is the next available 2 decimal digit 
+TemplateXX/OEBPS directory (where XX is the next available 2 digit decimal 
 value). The application automatically generates the files: "content.opf", 
 "toc.ncx" and "toc.xhtml" based on user input and these files should not be 
 modified.
 
-The application also generates the command files "buildXX.bat" and "buildXX.sh" 
-which can be used to create an epub file (TemplateXX/TemplateXX.epub). However 
-these command files require a zip client, that can be run from the command 
-line, be installed. The command file(s) should be updated to run the 
-installed zip client. Note: by default the generated files run the 
+The application also generates the command files "buildXX.bat" and 
+"buildXX.sh", either of which can be used to create an epub file 
+(TemplateXX/TemplateXX.epub) using the contents of the template. However these 
+command files require an installed zip client, that can be run from the 
+command line. The command file(s) should be updated to run the installed zip 
+client. Note: by default the generated command files run the 
 [7-Zip](https://www.7-zip.org/) client from it's default install directory.
 
 ## Dependencies
@@ -48,14 +49,14 @@ To get the latest code, run the following command from the EBookGen directory:
 
     git pull --rebase origin
 
-Then use the mvn command above to run it. If the update fails, delete the entire 
-EBookGen directory and execute the "Cloning and Running" steps again.
+Then use the mvn command above to run it. If the update fails, delete the 
+entire EBookGen directory and execute the "Cloning and Running" steps again.
 
 ## Recommended work flow
 
   1. Generate a template using your initial best guess for the required sections.
   2. Update the xhtml files with your content.
-  3. Check content by viewing OEBPS/toc.xhtml in a browser.
+  3. Check content by viewing OEBPS/toc.xhtml in a browser and correct any errors.
   4. If you realize the original template was wrong, generate a new template.
   5. Copy the content from the old template to the new.
   6. Go back to step 2.
