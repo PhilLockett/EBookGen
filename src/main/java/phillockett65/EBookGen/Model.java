@@ -80,7 +80,9 @@ public class Model {
 	public final static String MT_NCX ="application/x-dtbncx+xml";
 	
 	public final static int ISBN = 0;
-	public final static int URL = 1;
+	public final static int UUID = 1;
+	public final static int DOI = 2;
+	public final static int JDCN = 3;
 
 	private String familyName = "Dickens";
 	private String givenNames = "Charles";
@@ -743,7 +745,9 @@ public class Model {
 
 	private void initIdTypeMap() {
 		mapIdType.put("ISBN", ISBN);
-		mapIdType.put("URL", URL);
+		mapIdType.put("UUID", UUID);
+		mapIdType.put("DOI", DOI);
+		mapIdType.put("JDCN", JDCN);
 
 		int i = 0;
 		listIdentifierTypes.clear();
